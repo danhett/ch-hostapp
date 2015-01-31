@@ -11,6 +11,8 @@ class Config extends EventDispatcher
 	public var LOGIN:String;
 	public var PASS:String;
 	public var SECONDS:Int;
+	public var CONSUMER_KEY:String;
+	public var CONSUMER_SECRET:String;
 
 	private var fast:Fast;
 
@@ -29,6 +31,9 @@ class Config extends EventDispatcher
 		LOGIN = fast.node.username.innerData;
 		PASS = fast.node.password.innerData;
 		SECONDS = Std.parseInt(fast.node.seconds.innerData);
+
+		CONSUMER_KEY = fast.node.consumerKey.innerData;
+		CONSUMER_SECRET = fast.node.consumerKey.innerData;
 
 		this.dispatchEvent(new Event(Event.COMPLETE));
 	}

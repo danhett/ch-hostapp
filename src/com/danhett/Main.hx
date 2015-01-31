@@ -1,6 +1,7 @@
 package com.danhett;
 
 import com.danhett.cornerhouse.Config;
+import com.danhett.cornerhouse.TwitterChecker;
 import openfl.Assets;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
@@ -30,6 +31,7 @@ class Main extends Sprite
     private var messageInput:TextField;
     private var timer:Timer;
     private var config:Config;
+    private var twitter:TwitterChecker;
 
     private var unprinted:Array<Dynamic>;
 
@@ -78,6 +80,14 @@ class Main extends Sprite
 		timer = new Timer(config.SECONDS * 1000);
 		timer.addEventListener(TimerEvent.TIMER, findNextUnprintedMessage);
 		timer.start();
+
+		checkTwitter();
+	}
+
+	private function checkTwitter():Void
+	{
+		twitter = new TwitterChecker();
+		twitter.setupTwitter(config.CONSUMER_KEY, config.CONSUMER_SECRET);
 	}
 
 
@@ -133,8 +143,8 @@ class Main extends Sprite
 	{
 		print("Printing message: " + msg.message);
 
-		msg.hasPrinted = true;
-        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+		//msg.hasPrinted = true;
+        //db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
 	}
 
 

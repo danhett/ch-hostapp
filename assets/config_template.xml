@@ -7,4 +7,7 @@
 	<password>PASSWORD</password>
 	<seconds>10</seconds>
 	
+	<consumerKey>xxxxxx</consumerKey>
+	<consumerSecret>xxxxxxx</consumerSecret>
+
 </databasedetails>
