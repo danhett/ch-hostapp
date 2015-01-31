@@ -33,7 +33,7 @@ class Config extends EventDispatcher
 		SECONDS = Std.parseInt(fast.node.seconds.innerData);
 
 		CONSUMER_KEY = fast.node.consumerKey.innerData;
-		CONSUMER_SECRET = fast.node.consumerKey.innerData;
+		CONSUMER_SECRET = fast.node.consumerSecret.innerData;
 
 		this.dispatchEvent(new Event(Event.COMPLETE));
 	}
