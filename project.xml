@@ -2,7 +2,7 @@
 <project>
 	
 	<meta title="Monitor" package="com.danhett.cornerhouse" version="1.0.0" company="Dan Hett" />
-	<app main="Main" path="bin" file="Monitor" />
+	<app main="com.danhett.Main" path="bin" file="Monitor" />
 	
 	<source path="src" />
 	

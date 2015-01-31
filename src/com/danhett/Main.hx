@@ -1,9 +1,11 @@
-package;
+package com.danhett;
 
+import com.danhett.cornerhouse.Config;
 import openfl.Assets;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.display.MovieClip;
+import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.events.TimerEvent;
 import openfl.text.TextField;
@@ -20,12 +22,6 @@ import sys.io.FileOutput;
 
 class Main extends Sprite 
 {
-	private var MONGO_URL:String = "ds029821.mongolab.com";
-	private var MONGO_PORT:Int = 29821;
-	private var LOGIN:String = "danhett";
-	private var PASS:String = "ch123";
-	private var seconds:Int = 4; // delay for each db query
-
 	private var clip:MovieClip;
 	private var mongo:Mongo;
     private var db:Database;
@@ -33,6 +29,7 @@ class Main extends Sprite
     private var nameInput:TextField;
     private var messageInput:TextField;
     private var timer:Timer;
+    private var config:Config;
 
     private var unprinted:Array<Dynamic>;
 
@@ -52,16 +49,25 @@ class Main extends Sprite
 		messageInput = cast(clip.getChildByName("messageInput"), TextField);
 		messageInput.type = TextFieldType.INPUT;
 
-		setupDatabase();
+		getConfig();
 	}
 
-	private function setupDatabase():Void
+	private function getConfig():Void
+	{
+		print("Loading configuration...");
+
+		config = new Config();
+		config.addEventListener(Event.COMPLETE, setupDatabase);
+		config.loadConfig("assets/databasedetails.xml");
+	}
+
+	private function setupDatabase(e:Event):Void
 	{
 		print("Connecting to database...");
 
-		mongo = new Mongo(MONGO_URL, MONGO_PORT);
+		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
         db = mongo.chtest; 
-        db.login(LOGIN, PASS); 
+        db.login(config.LOGIN, config.PASS); 
         
         print("Found " + db.messages.find().getDocs().length + " messages in the database.");
 
@@ -76,7 +82,7 @@ class Main extends Sprite
 		btn.buttonMode = true;
 		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
 
-		timer = new Timer(seconds * 1000);
+		timer = new Timer(config.SECONDS * 1000);
 		timer.addEventListener(TimerEvent.TIMER, findUnprintedMessages);
 		timer.start();
 	}
