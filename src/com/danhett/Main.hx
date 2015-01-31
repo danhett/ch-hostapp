@@ -58,7 +58,7 @@ class Main extends Sprite
 
 		config = new Config();
 		config.addEventListener(Event.COMPLETE, setupDatabase);
-		config.loadConfig("assets/databasedetails.xml");
+		config.loadConfig("assets/config.xml");
 	}
 
 	private function setupDatabase(e:Event):Void
@@ -71,19 +71,12 @@ class Main extends Sprite
         
         print("Found " + db.messages.find().getDocs().length + " messages in the database.");
 
-        /*
-        for(message in db.messages.find()) 
-        {
-            print(message);
-        }
-        */
-
         var btn = cast(clip.getChildByName("submitBtn"), MovieClip);
 		btn.buttonMode = true;
 		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
 
 		timer = new Timer(config.SECONDS * 1000);
-		timer.addEventListener(TimerEvent.TIMER, findUnprintedMessages);
+		timer.addEventListener(TimerEvent.TIMER, findNextUnprintedMessage);
 		timer.start();
 	}
 
@@ -103,7 +96,7 @@ class Main extends Sprite
 	        {
 	            message: messageInput.text,
 	            submitter: nameInput.text,
-	            submitDate: '5th January 2015',
+	            submitDate: Date.now(),
 	            hasPrinted: false
 	        };
 
@@ -119,14 +112,29 @@ class Main extends Sprite
 	/**
 	 * FIND NEW UNPRINTED MESSAGES
 	 */
-	private function findUnprintedMessages(e:TimerEvent):Void
+	private function findNextUnprintedMessage(e:TimerEvent):Void
 	{
-		var found:Int = db.messages.find().getDocs().length;
+		//var found:Int = db.messages.find().getDocs().length;
+		
+		for(message in db.messages.find()) 
+        {
+            if(message.hasPrinted == false)
+            {
+            	var unprintedMessage = message;
+            	printMessage(unprintedMessage);
+            	break;
+            }
+        }
 
-		var randIndex:Int = Math.round(Math.random() * found);
-		print("Printing message " + randIndex + " of " + found + ": " + db.messages.find().getDocs()[randIndex].message);
+		//createSnapshot(db.messages.find().getDocs()[randIndex].message, db.messages.find().getDocs()[randIndex].submitter, randIndex);
+	}
 
-		createSnapshot(db.messages.find().getDocs()[randIndex].message, db.messages.find().getDocs()[randIndex].submitter, randIndex);
+	private function printMessage(msg:Dynamic):Void
+	{
+		print("Printing message: " + msg.message);
+
+		msg.hasPrinted = true;
+        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
 	}
 
 
@@ -159,7 +167,7 @@ class Main extends Sprite
 		var image:BitmapData = new BitmapData( Std.int( card.width ), Std.int( card.height ), false, 0x00FF00);
 		image.draw(card);
 
-		// Saving the BitmapData
+		// Save the bitmap to the desktop for now - do we need to print directly from here?
 		var b:ByteArray = image.encode("png", 1);
 		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/test" + index + ".png", true);
 		fo.writeString(b.toString());

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databasedetails>
+	
+	<db>DB_URL</db>
+	<port>DB_PORT</port>
+	<username>USERNAME</username>
+	<password>PASSWORD</password>
+	<seconds>10</seconds>
+	
+</databasedetails>

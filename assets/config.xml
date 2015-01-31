@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databasedetails>
+	
+	<db>ds029821.mongolab.com</db>
+	<port>29821</port>
+	<username>danhett</username>
+	<password>ch123</password>
+	<seconds>3</seconds>
+	
+</databasedetails>
