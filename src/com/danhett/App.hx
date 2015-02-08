@@ -3,7 +3,8 @@ package com.danhett;
 import com.danhett.cornerhouse.Config;
 import com.danhett.cornerhouse.Machine;
 import com.danhett.cornerhouse.Printer;
-import com.danhett.cornerhouse.TwitterChecker;
+import com.danhett.cornerhouse.Twitter;
+
 import openfl.Assets;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
@@ -19,8 +20,10 @@ import openfl.text.TextFormatAlign;
 import openfl.utils.ByteArray;
 import openfl.utils.SystemPath;
 import openfl.utils.Timer;
+
 import org.mongodb.Mongo;
 import org.mongodb.Database;
+
 import sys.io.FileOutput;
 
 class App extends Sprite 
@@ -33,7 +36,7 @@ class App extends Sprite
     private var messageInput:TextField;
     private var timer:Timer;
     private var config:Config;
-    private var twitter:TwitterChecker;
+    private var twitter:Twitter;
 
     private var unprinted:Array<Dynamic>;
 
@@ -66,6 +69,10 @@ class App extends Sprite
 
 		messageInput = cast(panel.getChildByName("messageInput"), TextField);
 		messageInput.type = TextFieldType.INPUT;
+
+		var btn = cast(panel.getChildByName("submitBtn"), MovieClip);
+		btn.buttonMode = true;
+		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
 	}
 
 
@@ -77,43 +84,57 @@ class App extends Sprite
 		log("Loading configuration...");
 
 		config = new Config();
-		config.addEventListener(Event.COMPLETE, setupDatabase);
+		config.addEventListener(Event.COMPLETE, onConfigurationFound);
 		config.loadConfig("assets/config.xml");
 	}
 
 
 	/**
-	 * CONNECT TO MONGODB
+	 * CONFIGURATION FOUND - SET UP COMPONENTS
 	 */
-	private function setupDatabase(e:Event):Void
+	private function onConfigurationFound(e:Event):Void
 	{
-		log("Connecting to database...");
+		log("Configuration loaded. Setting up.");
 
+		connectToDatabase();
+
+		connectToTwitter();
+
+		startMonitoring();
+	}
+
+
+	/**
+	 * LOG INTO MONGODB
+	 */
+	private function connectToDatabase():Void
+	{
 		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
         db = mongo.chtest; 
         db.login(config.LOGIN, config.PASS); 
         
-        log("Found " + db.messages.find().getDocs().length + " messages in the database.");
-
-        var btn = cast(panel.getChildByName("submitBtn"), MovieClip);
-		btn.buttonMode = true;
-		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
-
-		timer = new Timer(config.SECONDS * 1000);
-		timer.addEventListener(TimerEvent.TIMER, findNextUnprintedMessage);
-		timer.start();
-
-		checkTwitter();
+        log("Connected to database. Found " + db.messages.find().getDocs().length + " messages.");
 	}
 
 
 	/**
 	 * START GETTING TWEETS
 	 */
-	private function checkTwitter():Void
+	private function connectToTwitter():Void
 	{
-		twitter = new TwitterChecker();
+		twitter = new Twitter();
 		twitter.setupTwitter(config.CONSUMER_KEY, config.CONSUMER_SECRET);
+	}
+
+
+	/**
+	 * START GETTING TWEETS
+	 */
+	private function startMonitoring():Void
+	{
+		timer = new Timer(config.SECONDS * 1000);
+		timer.addEventListener(TimerEvent.TIMER, findNextUnprintedMessage);
+		timer.start();
 	}
 
 
@@ -170,6 +191,16 @@ class App extends Sprite
             	break;
             }
         }
+	}
+
+
+	/**
+	 * CHECK IF MESSAGE ALREADY EXISTS
+	 * Stops duplicate tweets being pushed into the database
+	 */
+	public function existsInDatabase():Bool
+	{
+		return false;
 	}
 
 
