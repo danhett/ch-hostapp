@@ -22,7 +22,7 @@ import org.mongodb.Mongo;
 import org.mongodb.Database;
 import sys.io.FileOutput;
 
-class Main extends Sprite 
+class App extends Sprite 
 {
 	private var panel:MovieClip;
 	private var mongo:Mongo;
@@ -52,7 +52,7 @@ class Main extends Sprite
 
 		readout = cast(panel.getChildByName("readout"), TextField);
 		readout.type = TextFieldType.DYNAMIC;
-		readout.height = 500;
+		readout.height = 500; // fixes weird textfield scrolling bug
 
 		nameInput = cast(panel.getChildByName("nameInput"), TextField);
 		nameInput.type = TextFieldType.INPUT;
