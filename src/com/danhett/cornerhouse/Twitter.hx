@@ -19,8 +19,7 @@ class Twitter extends EventDispatcher
 	private var secret:String;
 	private var bearerToken:String;
 
-	private var hashtag:String = "cornerhouse";
-	private var searchCount:Int = 10;
+	private var hashtag:String = "hello";
 
 	public function new() 
 	{
@@ -80,7 +79,7 @@ class Twitter extends EventDispatcher
 		var ld:URLLoader = new URLLoader();
 		var variables = new URLVariables();
 
-		var req:URLRequest = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40cornerhouse&result_type=recent&count=1");
+		var req:URLRequest = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40" + hashtag + "&result_type=recent&count=1");
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Bearer " + bearerToken);
     	req.requestHeaders.push(authHeader);
 
@@ -96,11 +95,19 @@ class Twitter extends EventDispatcher
 	 */
 	private function showTweets(e:Event):Void
 	{
-		var json = haxe.Json.parse(e.target.data);
-		var messageText:String = json.statuses[0].text;
-		var messageSubmitter:String = json.statuses[0].user.screen_name;
+		var json:Dynamic = haxe.Json.parse(e.target.data);
 
-        App.Instance().addEntry(messageText, messageSubmitter, true);
+		if(json.statuses.length >= 1) // guards against weird returns, in case something barfed at the twitter end
+		{
+			var messageText:String = json.statuses[0].text;
+			var messageSubmitter:String = json.statuses[0].user.screen_name;
+
+	        App.Instance().addEntry(messageText, messageSubmitter, true);
+		}
+		else
+		{
+			App.Instance().log("No tweets found for this hashtag! Something probably went wrong...");
+		}
 	}
 }
 

@@ -21,6 +21,7 @@ import openfl.utils.ByteArray;
 import openfl.utils.SystemPath;
 import openfl.utils.Timer;
 
+import org.mongodb.Cursor;
 import org.mongodb.Mongo;
 import org.mongodb.Database;
 
@@ -173,10 +174,17 @@ class App extends Sprite
             isTweet: _isTweet
         };
 
+        log(msg);
 
         // Important: check to see if this message already exists
-        if(!existsInDatabase())
+        if(!existsInDatabase(msg))
+        {
         	db.messages.insert(msg);
+        }
+        else
+        {
+    		// message is already in the database, do nothing for now
+        }
 	}
 
 
@@ -184,9 +192,12 @@ class App extends Sprite
 	 * CHECK IF MESSAGE ALREADY EXISTS
 	 * Stops duplicate tweets being pushed into the database
 	 */
-	public function existsInDatabase():Bool
+	public function existsInDatabase(msg:Dynamic):Bool
 	{
-		// TODO
+		var query = db.messages.find( {message: msg.message, submitter: msg.submitter } ).getDocs();
+
+		if(query.length > 0)
+			return true;
 
 		return false;
 	}
