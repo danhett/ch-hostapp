@@ -1,5 +1,6 @@
 package com.danhett.cornerhouse;
 
+import com.danhett.App;
 import StringTools;
 import haxe.crypto.Base64;
 import openfl.events.Event;
@@ -25,7 +26,7 @@ class TwitterChecker extends EventDispatcher
 
 	public function setupTwitter(_key:String, _secret:String):Void
 	{
-		trace("Setting up twitter...");
+		App.Instance().log("Setting up twitter...");
 
 		key = StringTools.urlEncode(_key);
 		secret = StringTools.urlEncode(_secret);
@@ -52,7 +53,7 @@ class TwitterChecker extends EventDispatcher
 	private function onComplete(e:Event):Void
 	{
 		bearerToken = haxe.Json.parse(e.target.data).access_token;
-		trace("Token: " + bearerToken);
+		App.Instance().log("Token: " + bearerToken);
 
 		getTweetList();
 	}
@@ -74,7 +75,8 @@ class TwitterChecker extends EventDispatcher
 
 	private function showTweets(e:Event):Void
 	{
-		trace(StringTools.htmlUnescape(e.target.data));
+		App.Instance().log("Tweets loaded successfully.");
+		//App.Instance().log(StringTools.htmlUnescape(e.target.data));
 	}
 }
 

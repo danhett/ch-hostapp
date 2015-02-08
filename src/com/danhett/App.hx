@@ -36,9 +36,11 @@ class App extends Sprite
 
     private var unprinted:Array<Dynamic>;
 
-	public function new() 
+	private function new() 
 	{
 		super();
+
+		self_reference = this;
 
 		setupPanel();
 
@@ -63,7 +65,7 @@ class App extends Sprite
 
 	private function getConfig():Void
 	{
-		print("Loading configuration...");
+		log("Loading configuration...");
 
 		config = new Config();
 		config.addEventListener(Event.COMPLETE, setupDatabase);
@@ -72,13 +74,13 @@ class App extends Sprite
 
 	private function setupDatabase(e:Event):Void
 	{
-		print("Connecting to database...");
+		log("Connecting to database...");
 
 		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
         db = mongo.chtest; 
         db.login(config.LOGIN, config.PASS); 
         
-        print("Found " + db.messages.find().getDocs().length + " messages in the database.");
+        log("Found " + db.messages.find().getDocs().length + " messages in the database.");
 
         var btn = cast(panel.getChildByName("submitBtn"), MovieClip);
 		btn.buttonMode = true;
@@ -104,9 +106,9 @@ class App extends Sprite
 	private function submitNewResponse(e:MouseEvent):Void
 	{
 		if(nameInput.text == "")
-			print("Name required for submission.");
+			log("Name required for submission.");
 		else if(messageInput.text == "")
-			print("Message required for submission.");
+			log("Message required for submission.");
 		else
 		{
 	        var msg = 
@@ -119,7 +121,7 @@ class App extends Sprite
 
 	        db.messages.insert(msg);
 
-	        print("Added entry to database!");
+	        log("Added entry to database!");
 	        nameInput.text = "";
 	        messageInput.text = "";
 		}	
@@ -146,7 +148,7 @@ class App extends Sprite
 
 	private function printMessage(msg:Dynamic):Void
 	{
-		print("Printing message: " + msg.message);
+		//log("Printing message: " + msg.message);
 
 		//msg.hasPrinted = true;
         //db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
@@ -156,11 +158,17 @@ class App extends Sprite
 
 
 	/**
-	 * PRINTING
+	 * LOGGING
 	 */
-	private function print(msg:Dynamic):Void
+	public function log(msg:Dynamic):Void
 	{
 		readout.appendText(msg + "\n");
 		readout.scrollV = readout.maxScrollV;
 	}
+
+	/**
+	 * DIRTY SINGLETON
+	 */
+	private static var self_reference:App;
+	public static function Instance():App { return self_reference; }
 }
