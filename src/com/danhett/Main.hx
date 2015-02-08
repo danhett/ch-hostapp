@@ -24,7 +24,7 @@ import sys.io.FileOutput;
 
 class Main extends Sprite 
 {
-	private var clip:MovieClip;
+	private var panel:MovieClip;
 	private var mongo:Mongo;
     private var db:Database;
     private var readout:TextField;
@@ -40,19 +40,25 @@ class Main extends Sprite
 	{
 		super();
 
-		clip = Assets.getMovieClip ("assets:BaseClip");
-		addChild(clip);
-
-		readout = cast(clip.getChildByName("readout"), TextField);
-		readout.type = TextFieldType.DYNAMIC;
-
-		nameInput = cast(clip.getChildByName("nameInput"), TextField);
-		nameInput.type = TextFieldType.INPUT;
-
-		messageInput = cast(clip.getChildByName("messageInput"), TextField);
-		messageInput.type = TextFieldType.INPUT;
+		setupPanel();
 
 		getConfig();
+	}
+
+	private function setupPanel():Void
+	{
+		panel = Assets.getMovieClip ("assets:BaseClip");
+		addChild(panel);
+
+		readout = cast(panel.getChildByName("readout"), TextField);
+		readout.type = TextFieldType.DYNAMIC;
+		readout.height = 500;
+
+		nameInput = cast(panel.getChildByName("nameInput"), TextField);
+		nameInput.type = TextFieldType.INPUT;
+
+		messageInput = cast(panel.getChildByName("messageInput"), TextField);
+		messageInput.type = TextFieldType.INPUT;
 	}
 
 	private function getConfig():Void
@@ -74,7 +80,7 @@ class Main extends Sprite
         
         print("Found " + db.messages.find().getDocs().length + " messages in the database.");
 
-        var btn = cast(clip.getChildByName("submitBtn"), MovieClip);
+        var btn = cast(panel.getChildByName("submitBtn"), MovieClip);
 		btn.buttonMode = true;
 		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
 
@@ -145,7 +151,7 @@ class Main extends Sprite
 		//msg.hasPrinted = true;
         //db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
 
-		Printer.saveToDesktop(msg.message, msg.submitter, 999);
+		//Printer.saveToDesktop(msg.message, msg.submitter, 999);
 	}
 
 
@@ -155,5 +161,6 @@ class Main extends Sprite
 	private function print(msg:Dynamic):Void
 	{
 		readout.appendText(msg + "\n");
+		readout.scrollV = readout.maxScrollV;
 	}
 }

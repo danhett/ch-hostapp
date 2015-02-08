@@ -24,8 +24,6 @@ class Printer extends EventDispatcher
 
 	public static function saveToDesktop(msg:String, submitter:String, index:Int):Void
 	{
-		trace("PRINT");
-
 		var card:MovieClip = Assets.getMovieClip ("assets:Postcard");
 		var msgReadout = cast(card.getChildByName("readout"), TextField);
 		msgReadout.type = TextFieldType.DYNAMIC;
