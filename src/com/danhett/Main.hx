@@ -1,6 +1,7 @@
 package com.danhett;
 
 import com.danhett.cornerhouse.Config;
+import com.danhett.cornerhouse.Printer;
 import com.danhett.cornerhouse.TwitterChecker;
 import openfl.Assets;
 import openfl.display.BitmapData;
@@ -135,8 +136,6 @@ class Main extends Sprite
             	break;
             }
         }
-
-		//createSnapshot(db.messages.find().getDocs()[randIndex].message, db.messages.find().getDocs()[randIndex].submitter, randIndex);
 	}
 
 	private function printMessage(msg:Dynamic):Void
@@ -145,43 +144,8 @@ class Main extends Sprite
 
 		//msg.hasPrinted = true;
         //db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
-	}
 
-
-	/**
-	 * CREATE SNAPSHOT
-	 */
-	private function createSnapshot(msg:String, submitter:String, index:Int):Void
-	{
-		var card:MovieClip = Assets.getMovieClip ("assets:Postcard");
-		var msgReadout = cast(card.getChildByName("readout"), TextField);
-		msgReadout.type = TextFieldType.DYNAMIC;
-		msgReadout.multiline = true;
-		msgReadout.wordWrap = true;
-
-		var form:TextFormat = new TextFormat();
-		form.color = 0xCA3032;
-		form.size = 55;
-		form.font = "Arial";
-		form.align = TextFormatAlign.CENTER;
-		form.leading = 20;
-
-		msgReadout.defaultTextFormat = form;
-		msgReadout.text = msg;
-
-
-		var subReadout = cast(card.getChildByName("submitter"), TextField);
-		subReadout.type = TextFieldType.DYNAMIC;
-		subReadout.text = "Submitted by: " + submitter;
-
-		var image:BitmapData = new BitmapData( Std.int( card.width ), Std.int( card.height ), false, 0x00FF00);
-		image.draw(card);
-
-		// Save the bitmap to the desktop for now - do we need to print directly from here?
-		var b:ByteArray = image.encode("png", 1);
-		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/test" + index + ".png", true);
-		fo.writeString(b.toString());
-		fo.close();
+		Printer.saveToDesktop(msg.message, msg.submitter, 999);
 	}
 
 

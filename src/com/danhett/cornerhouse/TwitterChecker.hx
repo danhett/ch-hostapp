@@ -62,7 +62,7 @@ class TwitterChecker extends EventDispatcher
 		var ld:URLLoader = new URLLoader();
 		var variables = new URLVariables();
 
-		var req:URLRequest = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40cornerhouse");
+		var req:URLRequest = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40cornerhouse&result_type=recent&count=1");
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Bearer " + bearerToken);
     	req.requestHeaders.push(authHeader);
 
@@ -74,7 +74,7 @@ class TwitterChecker extends EventDispatcher
 
 	private function showTweets(e:Event):Void
 	{
-		trace(e.target.data);
+		trace(StringTools.htmlUnescape(e.target.data));
 	}
 }
 
