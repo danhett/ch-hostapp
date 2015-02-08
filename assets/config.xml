@@ -5,7 +5,7 @@
 	<port>29821</port>
 	<username>danhett</username>
 	<password>ch123</password>
-	<seconds>1</seconds>
+	<seconds>10</seconds>
 
 	<consumerKey>dJM9DLXpvPERlPM0XUtpWvVFk</consumerKey>
 	<consumerSecret>lJ3zTm0tz2Tzt6xxonv9zuP021jUcbCCmHk9jGU5wbGBEmGn5r</consumerSecret>

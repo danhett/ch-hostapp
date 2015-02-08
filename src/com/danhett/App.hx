@@ -1,6 +1,7 @@
 package com.danhett;
 
 import com.danhett.cornerhouse.Config;
+import com.danhett.cornerhouse.Machine;
 import com.danhett.cornerhouse.Printer;
 import com.danhett.cornerhouse.TwitterChecker;
 import openfl.Assets;
@@ -47,6 +48,10 @@ class App extends Sprite
 		getConfig();
 	}
 
+
+	/**
+	 * PANEL SETUP
+	 */
 	private function setupPanel():Void
 	{
 		panel = Assets.getMovieClip ("assets:BaseClip");
@@ -63,6 +68,10 @@ class App extends Sprite
 		messageInput.type = TextFieldType.INPUT;
 	}
 
+
+	/**
+	 * LOAD CONFIGURATION
+	 */
 	private function getConfig():Void
 	{
 		log("Loading configuration...");
@@ -72,6 +81,10 @@ class App extends Sprite
 		config.loadConfig("assets/config.xml");
 	}
 
+
+	/**
+	 * CONNECT TO MONGODB
+	 */
 	private function setupDatabase(e:Event):Void
 	{
 		log("Connecting to database...");
@@ -93,6 +106,10 @@ class App extends Sprite
 		checkTwitter();
 	}
 
+
+	/**
+	 * START GETTING TWEETS
+	 */
 	private function checkTwitter():Void
 	{
 		twitter = new TwitterChecker();
@@ -101,7 +118,7 @@ class App extends Sprite
 
 
 	/**
-	 * SUBMIT NEW RESPONSE
+	 * SUBMIT TEST RESPONSE
 	 */
 	private function submitNewResponse(e:MouseEvent):Void
 	{
@@ -111,30 +128,39 @@ class App extends Sprite
 			log("Message required for submission.");
 		else
 		{
-	        var msg = 
-	        {
-	            message: messageInput.text,
-	            submitter: nameInput.text,
-	            submitDate: Date.now(),
-	            hasPrinted: false
-	        };
-
-	        db.messages.insert(msg);
-
-	        log("Added entry to database!");
+	        addEntry(messageInput.text, nameInput.text);
 	        nameInput.text = "";
 	        messageInput.text = "";
+
+	        log("Added entry to database!");
 		}	
 	}
 
 
 	/**
-	 * FIND NEW UNPRINTED MESSAGES
+	 * PUSH ENTRY INTO DATABASE
+	 * Used for test panel, and also adding new tweets into the DB
+	 */
+	private function addEntry(_message:String, _submitter:String):Void
+	{
+		var msg = 
+        {
+            message: _message,
+            submitter: _submitter,
+            submitDate: Date.now(),
+            hasPrinted: false
+        };
+
+        db.messages.insert(msg);
+	}
+
+
+	/**
+	 * FIND NEXT UNPRINTED MESSAGES
+	 * This method is continually called on a
 	 */
 	private function findNextUnprintedMessage(e:TimerEvent):Void
-	{
-		//var found:Int = db.messages.find().getDocs().length;
-		
+	{		
 		for(message in db.messages.find()) 
         {
             if(message.hasPrinted == false)
@@ -146,14 +172,24 @@ class App extends Sprite
         }
 	}
 
+
+	/**
+	 * SEND TO PRINTER
+	 * Physically prints the message, invalidates it in the DB, and activates the machine!
+	 */
 	private function printMessage(msg:Dynamic):Void
 	{
-		//log("Printing message: " + msg.message);
+		log("Printing message: " + msg.message);
 
-		//msg.hasPrinted = true;
-        //db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+		// Set the entry to printed in the database
+		msg.hasPrinted = true;
+        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
 
+        // Print the actual card (TODO - can we detect a successful physical print?)
 		//Printer.saveToDesktop(msg.message, msg.submitter, 999);
+
+		// Signal the arduino to light up the machine and move about
+		Machine.activate();
 	}
 
 
@@ -165,6 +201,7 @@ class App extends Sprite
 		readout.appendText(msg + "\n");
 		readout.scrollV = readout.maxScrollV;
 	}
+
 
 	/**
 	 * DIRTY SINGLETON
