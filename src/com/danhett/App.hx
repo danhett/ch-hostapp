@@ -162,17 +162,33 @@ class App extends Sprite
 	 * PUSH ENTRY INTO DATABASE
 	 * Used for test panel, and also adding new tweets into the DB
 	 */
-	private function addEntry(_message:String, _submitter:String):Void
+	public function addEntry(_message:String, _submitter:String, _isTweet:Bool = false):Void
 	{
 		var msg = 
         {
             message: _message,
             submitter: _submitter,
             submitDate: Date.now(),
-            hasPrinted: false
+            hasPrinted: false,
+            isTweet: _isTweet
         };
 
-        db.messages.insert(msg);
+
+        // Important: check to see if this message already exists
+        if(!existsInDatabase())
+        	db.messages.insert(msg);
+	}
+
+
+	/**
+	 * CHECK IF MESSAGE ALREADY EXISTS
+	 * Stops duplicate tweets being pushed into the database
+	 */
+	public function existsInDatabase():Bool
+	{
+		// TODO
+
+		return false;
 	}
 
 
@@ -191,16 +207,6 @@ class App extends Sprite
             	break;
             }
         }
-	}
-
-
-	/**
-	 * CHECK IF MESSAGE ALREADY EXISTS
-	 * Stops duplicate tweets being pushed into the database
-	 */
-	public function existsInDatabase():Bool
-	{
-		return false;
 	}
 
 

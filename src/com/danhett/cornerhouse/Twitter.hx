@@ -96,8 +96,11 @@ class Twitter extends EventDispatcher
 	 */
 	private function showTweets(e:Event):Void
 	{
-		App.Instance().log("Tweets loaded successfully.");
-		//App.Instance().log(StringTools.htmlUnescape(e.target.data));
+		var json = haxe.Json.parse(e.target.data);
+		var messageText:String = json.statuses[0].text;
+		var messageSubmitter:String = json.statuses[0].user.screen_name;
+
+        App.Instance().addEntry(messageText, messageSubmitter, true);
 	}
 }
 
