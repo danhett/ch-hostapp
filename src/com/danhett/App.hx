@@ -38,6 +38,7 @@ class App extends Sprite
     private var timer:Timer;
     private var config:Config;
     private var twitter:Twitter;
+    private var found:Bool;
 
     private var unprinted:Array<Dynamic>;
 
@@ -174,11 +175,11 @@ class App extends Sprite
             isTweet: _isTweet
         };
 
-        log(msg);
-
         // Important: check to see if this message already exists
         if(!existsInDatabase(msg))
         {
+        	log("Adding new message to database: " + msg.message);
+
         	db.messages.insert(msg);
         }
         else
@@ -205,16 +206,19 @@ class App extends Sprite
 
 	/**
 	 * FIND NEXT UNPRINTED MESSAGES
-	 * This method is continually called on a
+	 * This method is continually called on a timer
 	 */
 	private function findNextUnprintedMessage(e:TimerEvent):Void
 	{		
+		found = false;
+
 		for(message in db.messages.find()) 
         {
             if(message.hasPrinted == false)
             {
             	var unprintedMessage = message;
             	printMessage(unprintedMessage);
+            	found = true;
             	break;
             }
         }
@@ -227,14 +231,14 @@ class App extends Sprite
 	 */
 	private function printMessage(msg:Dynamic):Void
 	{
-		log("Printing message: " + msg.message);
+		log("Printing message...");
 
 		// Set the entry to printed in the database
 		msg.hasPrinted = true;
         db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
 
         // Print the actual card (TODO - can we detect a successful physical print?)
-		//Printer.saveToDesktop(msg.message, msg.submitter, 999);
+		Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
 
 		// Signal the arduino to light up the machine and move about
 		Machine.activate();

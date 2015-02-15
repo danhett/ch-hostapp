@@ -22,7 +22,7 @@ class Printer extends EventDispatcher
 		super();
 	}
 
-	public static function saveToDesktop(msg:String, submitter:String, index:Int):Void
+	public static function saveToDesktop(msg:String, submitter:String, submitDate:String):Void
 	{
 		var card:MovieClip = Assets.getMovieClip ("assets:Postcard");
 		var msgReadout = cast(card.getChildByName("readout"), TextField);
@@ -48,9 +48,8 @@ class Printer extends EventDispatcher
 		var image:BitmapData = new BitmapData( Std.int( card.width ), Std.int( card.height ), false, 0x00FF00);
 		image.draw(card);
 
-		// Save the bitmap to the desktop for now - do we need to print directly from here?
 		var b:ByteArray = image.encode("png", 1);
-		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/test" + index + ".png", true);
+		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/queue/" + submitter  + "_" + Math.random() + ".png", true);
 		fo.writeString(b.toString());
 		fo.close();
 	}

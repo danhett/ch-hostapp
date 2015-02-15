@@ -19,7 +19,7 @@ class Twitter extends EventDispatcher
 	private var secret:String;
 	private var bearerToken:String;
 
-	private var hashtag:String = "hello";
+	private var hashtag:String = "cornerhouse";
 
 	public function new() 
 	{
@@ -65,7 +65,7 @@ class Twitter extends EventDispatcher
 	private function onComplete(e:Event):Void
 	{
 		bearerToken = haxe.Json.parse(e.target.data).access_token;
-		App.Instance().log("Token: " + bearerToken);
+		App.Instance().log("Access token recieved. Getting tweets...");
 
 		getTweetList();
 	}
