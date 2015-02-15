@@ -5,6 +5,7 @@ import StringTools;
 import haxe.crypto.Base64;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
+import openfl.events.HTTPStatusEvent;
 import openfl.events.IOErrorEvent;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
@@ -45,7 +46,7 @@ class Twitter extends EventDispatcher
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Basic " + Base64.encode(bytes));
 		
 		// Create the request
-		var req:URLRequest = new URLRequest("https://api.twitter.com/oauth2/token");
+		var req:URLRequest = new URLRequest("https://api.twitterr.com/oauth2/token");
     	req.method = URLRequestMethod.POST;
     	req.requestHeaders.push(authHeader);
        	req.contentType = "application/x-www-form-urlencoded;charset=UTF-8";
@@ -53,6 +54,8 @@ class Twitter extends EventDispatcher
 
     	// Listen for completion/failure
     	ld.addEventListener(Event.COMPLETE, onComplete);
+    	ld.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
+    	ld.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatusEvent);
 
     	// Make the request - should return a bunch of JSON containing an access token
     	ld.load(req);
@@ -108,6 +111,27 @@ class Twitter extends EventDispatcher
 		{
 			App.Instance().log("No tweets found for this hashtag! Something probably went wrong...");
 		}
+	}
+
+
+	/**
+	 * ERROR HANDLING
+	 * Called by token and also tweets API calls
+	 */
+	private function onIOError(e:IOErrorEvent):Void
+	{
+		App.Instance().log("Twitter error! Service might be down.");
+	}
+
+
+	/**
+	 * HTTP STATUS HANDLING
+	 * Called by token and also tweets API calls. Here to catch status 0, which means no connection.
+	 */
+	private function onHTTPStatusEvent(e:HTTPStatusEvent):Void
+	{
+		if(e.status == 0)
+			App.Instance().log("HTTP status was zero - are you connected to the internet?");
 	}
 }
 

@@ -49,8 +49,13 @@ class Printer extends EventDispatcher
 		image.draw(card);
 
 		var b:ByteArray = image.encode("png", 1);
-		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/queue/" + submitter  + "_" + Math.random() + ".png", true);
+		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/queue/" + submitter  + "_" + getIndex() + ".png", true);
 		fo.writeString(b.toString());
 		fo.close();
+	}
+
+	private static function getIndex():Int
+	{
+		return Math.round(Math.random() * 10000);
 	}
 }

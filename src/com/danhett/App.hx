@@ -237,7 +237,7 @@ class App extends Sprite
 		msg.hasPrinted = true;
         db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
 
-        // Print the actual card (TODO - can we detect a successful physical print?)
+        // Print the actual card (saves it to a directory)
 		Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
 
 		// Signal the arduino to light up the machine and move about
