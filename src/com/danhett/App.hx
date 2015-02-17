@@ -40,6 +40,7 @@ class App extends Sprite
     private var twitter:Twitter;
     private var found:Bool;
     private var toggleBtn:MovieClip;
+    private var testPrint:MovieClip;
     private var ACTIVE:Bool = true;
 
     private var unprinted:Array<Dynamic>;
@@ -77,6 +78,11 @@ class App extends Sprite
 		var btn = cast(panel.getChildByName("submitBtn"), MovieClip);
 		btn.buttonMode = true;
 		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
+
+		testPrint = cast(panel.getChildByName("testPrint"), MovieClip);
+		testPrint.stop();
+		testPrint.buttonMode = true;
+		testPrint.addEventListener(MouseEvent.CLICK, doTestPrint);
 
 		toggleBtn = cast(panel.getChildByName("activeToggle"), MovieClip);
 		toggleBtn.stop();
@@ -239,13 +245,16 @@ class App extends Sprite
 	 * SEND TO PRINTER
 	 * Physically prints the message, invalidates it in the DB, and activates the machine!
 	 */
-	private function printMessage(msg:Dynamic):Void
+	private function printMessage(msg:Dynamic, isTest:Bool = false):Void
 	{
 		log("Printing message...");
 
-		// Set the entry to printed in the database
-		msg.hasPrinted = true;
-        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+		if(!isTest)
+		{
+			// Set the entry to printed in the database
+			msg.hasPrinted = true;
+	        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+		}
 
         // Print the actual card (saves it to a directory)
 		Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
@@ -268,6 +277,26 @@ class App extends Sprite
 		else
 			toggleBtn.gotoAndStop(2);
 	}
+
+
+	/**
+	 * TEST PRINT
+	 * Writes a test printout to the machine
+	 */
+	private function doTestPrint(e:MouseEvent):Void
+	{
+		var msg = 
+        {
+            message: "This is a test print. Hello!",
+            submitter: "Test Name",
+            submitDate: Date.now(),
+            hasPrinted: false,
+            isTweet: false
+        };
+
+        printMessage(msg, true);
+	}
+
 
 	/**
 	 * LOGGING
