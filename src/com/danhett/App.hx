@@ -39,6 +39,8 @@ class App extends Sprite
     private var config:Config;
     private var twitter:Twitter;
     private var found:Bool;
+    private var toggleBtn:MovieClip;
+    private var ACTIVE:Bool = true;
 
     private var unprinted:Array<Dynamic>;
 
@@ -75,6 +77,11 @@ class App extends Sprite
 		var btn = cast(panel.getChildByName("submitBtn"), MovieClip);
 		btn.buttonMode = true;
 		btn.addEventListener(MouseEvent.CLICK, submitNewResponse);
+
+		toggleBtn = cast(panel.getChildByName("activeToggle"), MovieClip);
+		toggleBtn.stop();
+		toggleBtn.buttonMode = true;
+		toggleBtn.addEventListener(MouseEvent.CLICK, toggleMachine);
 	}
 
 
@@ -212,16 +219,19 @@ class App extends Sprite
 	{		
 		found = false;
 
-		for(message in db.messages.find()) 
-        {
-            if(message.hasPrinted == false)
-            {
-            	var unprintedMessage = message;
-            	printMessage(unprintedMessage);
-            	found = true;
-            	break;
-            }
-        }
+		if(ACTIVE)
+		{
+			for(message in db.messages.find()) 
+	        {
+	            if(message.hasPrinted == false)
+	            {
+	            	var unprintedMessage = message;
+	            	printMessage(unprintedMessage);
+	            	found = true;
+	            	break;
+	            }
+	        }
+		}
 	}
 
 
@@ -244,6 +254,20 @@ class App extends Sprite
 		Machine.activate();
 	}
 
+
+	/**
+	 * MACHINE TOGGLE
+	 * Suppresses printing, used for maintenance
+	 */
+	private function toggleMachine(e:MouseEvent):Void
+	{
+		ACTIVE = !ACTIVE;
+
+		if(ACTIVE)
+			toggleBtn.gotoAndStop(1);
+		else
+			toggleBtn.gotoAndStop(2);
+	}
 
 	/**
 	 * LOGGING
