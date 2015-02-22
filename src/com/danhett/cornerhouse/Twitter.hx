@@ -47,7 +47,7 @@ class Twitter extends EventDispatcher
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Basic " + Base64.encode(bytes));
 		
 		// Create the request
-		var req:URLRequest = new URLRequest("https://api.twitterr.com/oauth2/token");
+		var req:URLRequest = new URLRequest("https://api.twitter.com/oauth2/token");
     	req.method = URLRequestMethod.POST;
     	req.requestHeaders.push(authHeader);
        	req.contentType = "application/x-www-form-urlencoded;charset=UTF-8";
