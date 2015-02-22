@@ -124,11 +124,19 @@ class App extends Sprite
 	 */
 	private function connectToDatabase():Void
 	{
-		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
-        db = mongo.chtest; 
-        db.login(config.LOGIN, config.PASS); 
+        try
+        {
+    		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
+        	db = mongo.chtest;
+
+    		db.login(config.LOGIN, config.PASS); 
         
-        log("Connected to database. Found " + db.messages.find().getDocs().length + " messages.");
+        	log("Connected to database. Found " + db.messages.find().getDocs().length + " messages.");
+        }
+        catch(err:Dynamic)
+        {
+        	log("ERROR! Couldn't connect to the database. Check internet connection.");
+        }
 	}
 
 

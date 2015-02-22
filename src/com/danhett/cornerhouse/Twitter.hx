@@ -121,7 +121,7 @@ class Twitter extends EventDispatcher
 	 */
 	private function onIOError(e:IOErrorEvent):Void
 	{
-		App.Instance().log("Twitter error! Service might be down.");
+		App.Instance().log("Twitter error! Check internet connection.");
 	}
 
 
@@ -132,7 +132,7 @@ class Twitter extends EventDispatcher
 	private function onHTTPStatusEvent(e:HTTPStatusEvent):Void
 	{
 		if(e.status == 0)
-			App.Instance().log("HTTP status was zero - are you connected to the internet?");
+			App.Instance().log("HTTP status was zero. Check internet connection.");
 	}
 }
 
