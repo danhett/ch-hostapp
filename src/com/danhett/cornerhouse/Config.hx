@@ -6,6 +6,7 @@ import openfl.events.EventDispatcher;
 
 class Config extends EventDispatcher 
 {
+	public var LIVE:Bool;
 	public var MONGO_URL:String;
 	public var MONGO_PORT:Int;
 	public var LOGIN:String;
@@ -26,6 +27,7 @@ class Config extends EventDispatcher
 		var xml = Xml.parse(sys.io.File.getContent(path));
 		fast = new Fast(xml.firstElement());
 
+		LIVE = fast.node.isLive.innerData == "true" ? true : false;
 		MONGO_URL = fast.node.db.innerData;
 		MONGO_PORT = Std.parseInt(fast.node.port.innerData);
 		LOGIN = fast.node.username.innerData;

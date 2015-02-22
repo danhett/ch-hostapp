@@ -21,6 +21,7 @@ class Twitter extends EventDispatcher
 	private var bearerToken:String;
 
 	private var hashtag:String = "cornerhouse";
+	private var count:Int = 10;
 
 	public function new() 
 	{

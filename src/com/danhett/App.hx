@@ -109,7 +109,7 @@ class App extends Sprite
 	 */
 	private function onConfigurationFound(e:Event):Void
 	{
-		log("Configuration loaded. Setting up.");
+		log("Configuration loaded. Live status: " + config.LIVE);
 
 		connectToDatabase();
 
