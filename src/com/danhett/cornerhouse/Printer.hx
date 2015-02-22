@@ -13,13 +13,35 @@ import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
 import openfl.utils.ByteArray;
 import openfl.utils.SystemPath;
+import sys.io.File;
 import sys.io.FileOutput;
+import sys.FileSystem;
 
 class Printer extends EventDispatcher 
 {
+	public static var LIVE_DIR_NAME:String = '/queue/';
+	public static var TEST_DIR_NAME:String = '/test_queue/';
+	public static var workingDirectoryPath:String;
+
 	public function new() 
 	{
 		super();
+	}
+
+	public static function setupFolders():Void
+	{
+		if( !FileSystem.exists( SystemPath.desktopDirectory + LIVE_DIR_NAME) )
+			FileSystem.createDirectory( SystemPath.desktopDirectory + LIVE_DIR_NAME );
+
+		if( !FileSystem.exists( SystemPath.desktopDirectory + TEST_DIR_NAME) )
+			FileSystem.createDirectory( SystemPath.desktopDirectory + TEST_DIR_NAME );
+
+		if(App.Instance().config.LIVE)
+			workingDirectoryPath = LIVE_DIR_NAME;
+		else
+			workingDirectoryPath = TEST_DIR_NAME;
+
+		trace("Working in " + workingDirectoryPath);
 	}
 
 	public static function saveToDesktop(msg:String, submitter:String, submitDate:String):Void
@@ -49,7 +71,7 @@ class Printer extends EventDispatcher
 		image.draw(card);
 
 		var b:ByteArray = image.encode("png", 1);
-		var fo:FileOutput = sys.io.File.write( SystemPath.desktopDirectory + "/queue/" + submitter  + "_" + getIndex() + ".png", true);
+		var fo:FileOutput = File.write( SystemPath.desktopDirectory + "/queue/" + submitter  + "_" + getIndex() + ".png", true);
 		fo.writeString(b.toString());
 		fo.close();
 	}

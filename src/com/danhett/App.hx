@@ -36,14 +36,14 @@ class App extends Sprite
     private var nameInput:TextField;
     private var messageInput:TextField;
     private var timer:Timer;
-    private var config:Config;
     private var twitter:Twitter;
     private var found:Bool;
     private var toggleBtn:MovieClip;
     private var testPrint:MovieClip;
     private var ACTIVE:Bool = true;
-
     private var unprinted:Array<Dynamic>;
+
+    public var config:Config;
 
 	private function new() 
 	{
@@ -110,6 +110,8 @@ class App extends Sprite
 	private function onConfigurationFound(e:Event):Void
 	{
 		log("Configuration loaded. Live status: " + config.LIVE);
+
+		Printer.setupFolders();
 
 		connectToDatabase();
 
@@ -204,10 +206,8 @@ class App extends Sprite
         	db.messages.insert(msg);
         }
         else
-        {
-        	log("Test entry is already present in the database");
-        	
-    		// message is already in the database, do nothing for now
+        {        	
+    		// message is already in the database, do nothing for now.
         }
 	}
 
