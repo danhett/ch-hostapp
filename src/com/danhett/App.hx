@@ -1,7 +1,6 @@
 package com.danhett;
 
 import com.danhett.cornerhouse.Config;
-import com.danhett.cornerhouse.Machine;
 import com.danhett.cornerhouse.Printer;
 import com.danhett.cornerhouse.Twitter;
 
@@ -268,9 +267,6 @@ class App extends Sprite
 
         // Print the actual card (saves it to a directory)
 		Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
-
-		// Signal the arduino to light up the machine and move about
-		Machine.activate();
 	}
 
 
