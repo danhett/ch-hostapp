@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databasedetails>
 	
-	<db>DB_URL</db>
-	<port>DB_PORT</port>
-	<username>USERNAME</username>
-	<password>PASSWORD</password>
-	<seconds>10</seconds>
-	
-	<consumerKey>xxxxxx</consumerKey>
-	<consumerSecret>xxxxxxx</consumerSecret>
+	<isLive>true</isLive>
 
+	<db>database.examplurl.com</db>
+	<port>12345</port>
+	<username>johndoe</username>
+	<password>password123</password>
+	<seconds>10</seconds>
+
+	<consumerKey>xxxxxxxxxxxxxxxxxxxxxxx</consumerKey>
+	<consumerSecret>xxxxxxxxxxxxxxxxxxxxxxx</consumerSecret>
+	
 </databasedetails>

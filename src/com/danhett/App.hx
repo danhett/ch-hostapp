@@ -205,6 +205,8 @@ class App extends Sprite
         }
         else
         {
+        	log("Test entry is already present in the database");
+        	
     		// message is already in the database, do nothing for now
         }
 	}
