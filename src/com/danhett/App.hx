@@ -64,10 +64,10 @@ class App extends Sprite
     private var found:Bool;
     private var toggleBtn:MovieClip;
     private var testPrint:MovieClip;
-    private var ACTIVE:Bool = true;
     private var unprinted:Array<Dynamic>;
 
     public var config:Config;
+    public var ACTIVE:Bool = true;
 
 	private function new() 
 	{
@@ -282,7 +282,7 @@ class App extends Sprite
 	 */
 	private function printMessage(msg:Dynamic, isTest:Bool = false):Void
 	{
-		log("Printing message...");
+		log("Printing new message: \n" + msg.message);
 
 		if(!isTest)
 		{

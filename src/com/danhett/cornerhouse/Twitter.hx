@@ -32,11 +32,12 @@ import openfl.events.Event;
 import openfl.events.EventDispatcher;
 import openfl.events.HTTPStatusEvent;
 import openfl.events.IOErrorEvent;
+import openfl.events.TimerEvent;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
 import openfl.net.URLRequestMethod;
-import openfl.net.URLVariables;
 import openfl.net.URLRequestHeader;
+import openfl.utils.Timer;
 import haxe.io.Bytes;
 
 class Twitter extends EventDispatcher 
@@ -45,8 +46,13 @@ class Twitter extends EventDispatcher
 	private var secret:String;
 	private var bearerToken:String;
 
-	private var hashtag:String = "cornerhouse";
-	private var count:Int = 10;
+	private var hashtag:String;
+	private var count:Int = 10; // number of tweets per request
+	private var seconds:Int;
+
+	private var ld:URLLoader;
+	private var req:URLRequest;
+	private var timer:Timer;
 
 	public function new() 
 	{
@@ -61,30 +67,33 @@ class Twitter extends EventDispatcher
 	{
 		App.Instance().log("Setting up twitter...");
 
+		// get settings from config
+		hashtag = App.Instance().config.TWITTER_HASHTAG;
+		seconds = App.Instance().config.TWITTER_QUERY_SECONDS;
+
 		// URL-encode the key and secret (shouldn't change, future-proofing in line with twitter's docs)
 		key = StringTools.urlEncode(_key);
 		secret = StringTools.urlEncode(_secret);
 
 		// Construct a new URL request with the key/secret pair
-		var ld:URLLoader = new URLLoader();
-		var variables = new URLVariables();
+		var authld:URLLoader = new URLLoader();
 		var bytes:Bytes = Bytes.ofString(key + ":" + secret);
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Basic " + Base64.encode(bytes));
 		
 		// Create the request
-		var req:URLRequest = new URLRequest("https://api.twitter.com/oauth2/token");
-    	req.method = URLRequestMethod.POST;
-    	req.requestHeaders.push(authHeader);
-       	req.contentType = "application/x-www-form-urlencoded;charset=UTF-8";
-    	req.data = "grant_type=client_credentials";
+		var authreq:URLRequest = new URLRequest("https://api.twitter.com/oauth2/token");
+    	authreq.method = URLRequestMethod.POST;
+    	authreq.requestHeaders.push(authHeader);
+       	authreq.contentType = "application/x-www-form-urlencoded;charset=UTF-8";
+    	authreq.data = "grant_type=client_credentials";
 
     	// Listen for completion/failure
-    	ld.addEventListener(Event.COMPLETE, onComplete);
-    	ld.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-    	ld.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatusEvent);
+    	authld.addEventListener(Event.COMPLETE, onComplete);
+    	authld.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
+    	authld.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatusEvent);
 
     	// Make the request - should return a bunch of JSON containing an access token
-    	ld.load(req);
+    	authld.load(authreq);
 	}
 
 
@@ -96,29 +105,42 @@ class Twitter extends EventDispatcher
 		bearerToken = haxe.Json.parse(e.target.data).access_token;
 		App.Instance().log("Access token recieved. Starting tweet check cycle.");
 
-		getTweetList();
+		setupTweetRequest();
 	}
 
 
 	/**
 	 * GET MOST RECENT TWEET
 	 */
-	private function getTweetList():Void
+	private function setupTweetRequest():Void
 	{
-		var ld:URLLoader = new URLLoader();
-		var variables = new URLVariables();
+		ld = new URLLoader();
 
-		var req:URLRequest = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40" 
+		req = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40" 
 											+ hashtag 
 											+ "&result_type=recent&count="
 											+ count);
+		
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Bearer " + bearerToken);
     	req.requestHeaders.push(authHeader);
 
-    	// TODO - add handling for bad HTTP statuses and whatever else
     	ld.addEventListener(Event.COMPLETE, showTweets);
+    	ld.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
+    	ld.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatusEvent);
     	
-    	ld.load(req);
+    	timer = new Timer(seconds * 1000);
+		timer.addEventListener(TimerEvent.TIMER, loadNewTweets);
+		timer.start();
+	}
+
+
+	/**
+	 * LOAD TWEETS
+	 */
+	private function loadNewTweets(e:TimerEvent):Void
+	{
+		if(App.Instance().ACTIVE)
+			ld.load(req);
 	}
 
 
