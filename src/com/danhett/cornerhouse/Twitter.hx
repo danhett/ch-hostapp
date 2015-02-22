@@ -96,7 +96,6 @@ class Twitter extends EventDispatcher
 		bearerToken = haxe.Json.parse(e.target.data).access_token;
 		App.Instance().log("Access token recieved. Starting tweet check cycle.");
 
-
 		getTweetList();
 	}
 

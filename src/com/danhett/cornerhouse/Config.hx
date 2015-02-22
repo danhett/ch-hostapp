@@ -37,6 +37,8 @@ class Config extends EventDispatcher
 	public var LOGIN:String;
 	public var PASS:String;
 	public var SECONDS:Int;
+	public var TWITTER_QUERY_SECONDS:Int;
+	public var TWITTER_HASHTAG:String;
 	public var CONSUMER_KEY:String;
 	public var CONSUMER_SECRET:String;
 
@@ -53,12 +55,27 @@ class Config extends EventDispatcher
 		fast = new Fast(xml.firstElement());
 
 		LIVE = fast.node.isLive.innerData == "true" ? true : false;
-		MONGO_URL = fast.node.db.innerData;
-		MONGO_PORT = Std.parseInt(fast.node.port.innerData);
-		LOGIN = fast.node.username.innerData;
-		PASS = fast.node.password.innerData;
+		
+		// Divert to the correct database depending on if we're live or not
+		if(LIVE)
+		{
+			MONGO_URL = fast.node.live_db.innerData;
+			MONGO_PORT = Std.parseInt(fast.node.live_port.innerData);
+			LOGIN = fast.node.live_username.innerData;
+			PASS = fast.node.live_password.innerData;
+		}
+		else
+		{
+			MONGO_URL = fast.node.test_db.innerData;
+			MONGO_PORT = Std.parseInt(fast.node.test_port.innerData);
+			LOGIN = fast.node.test_username.innerData;
+			PASS = fast.node.test_password.innerData;
+		}
+		
 		SECONDS = Std.parseInt(fast.node.seconds.innerData);
 
+		TWITTER_QUERY_SECONDS = Std.parseInt(fast.node.twitterQuerySeconds.innerData);
+		TWITTER_HASHTAG = fast.node.twitterHashtag.innerData;
 		CONSUMER_KEY = fast.node.consumerKey.innerData;
 		CONSUMER_SECRET = fast.node.consumerSecret.innerData;
 

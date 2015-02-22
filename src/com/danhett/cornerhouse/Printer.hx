@@ -65,8 +65,6 @@ class Printer extends EventDispatcher
 			workingDirectoryPath = LIVE_DIR_NAME;
 		else
 			workingDirectoryPath = TEST_DIR_NAME;
-
-		trace("Working in " + workingDirectoryPath);
 	}
 
 	public static function saveToDesktop(msg:String, submitter:String, submitDate:String):Void

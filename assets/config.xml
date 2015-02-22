@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databasedetails>
 	
+	<!-- LIVE TOGGLE: Controls the DB target, and the print location -->
 	<isLive>false</isLive>
 
-	<db>ds029821.mongolab.com</db>
-	<port>29821</port>
-	<username>danhett</username>
-	<password>ch123</password>
+	<!-- LIVE DATABASE -->
+	<live_db>ds029821.mongolab.com</live_db>
+	<live_port>29821</live_port>
+	<live_username>danhett</live_username>
+	<live_password>ch123</live_password>
+
+	<!-- TEST DATABASE -->
+	<test_db>ds029821.mongolab.com</test_db>
+	<test_port>29821</test_port>
+	<test_username>danhett</test_username>
+	<test_password>ch123</test_password>
+	
+	<!-- Database check frequency -->
 	<seconds>10</seconds>
 
+	<!-- Twitter configuration and API details -->
+	<twitterQuerySeconds>30</twitterQuerySeconds>
+	<twitterHashtag>cornerhouse</twitterHashtag>
 	<consumerKey>dJM9DLXpvPERlPM0XUtpWvVFk</consumerKey>
 	<consumerSecret>lJ3zTm0tz2Tzt6xxonv9zuP021jUcbCCmHk9jGU5wbGBEmGn5r</consumerSecret>
 	
