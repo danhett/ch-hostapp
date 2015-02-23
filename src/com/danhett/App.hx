@@ -311,7 +311,9 @@ class App extends Sprite
 	 */
 	private function printMessage(msg:Dynamic, isTest:Bool = false):Void
 	{
-		log("Printing new message: \n" + msg.message);
+		log("------------------------");
+		log("Printing new message: \n" + msg.message + "\n");
+
 
 		if(!isTest)
 		{

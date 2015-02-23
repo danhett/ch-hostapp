@@ -103,7 +103,7 @@ class Twitter extends EventDispatcher
 	private function onComplete(e:Event):Void
 	{
 		App.Instance().showTwitterConnection(true);
-		
+
 		bearerToken = haxe.Json.parse(e.target.data).access_token;
 		App.Instance().log("Access token recieved. Starting tweet check cycle.");
 
@@ -118,10 +118,10 @@ class Twitter extends EventDispatcher
 	{
 		ld = new URLLoader();
 
-		req = new URLRequest("https://api.twitter.com/1.1/search/tweets.json?q=%40" 
-											+ hashtag 
-											+ "&result_type=recent&count="
-											+ count);
+		req = new URLRequest("https://api.twitter.com/1.1/search/tweets.json" 
+											+ "?q=" + hashtag 
+											+ "&result_type=recent"
+											+ "&count=" + count);
 		
 		var authHeader:URLRequestHeader = new URLRequestHeader("Authorization", "Bearer " + bearerToken);
     	req.requestHeaders.push(authHeader);
