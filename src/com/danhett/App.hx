@@ -66,6 +66,10 @@ class App extends Sprite
     private var testPrint:MovieClip;
     private var unprinted:Array<Dynamic>;
 
+    private var appModeMarker:MovieClip;
+    private var databaseMarker:MovieClip;
+    private var twitterMarker:MovieClip;
+
     public var config:Config;
     public var ACTIVE:Bool = true;
 
@@ -112,6 +116,15 @@ class App extends Sprite
 		toggleBtn.stop();
 		toggleBtn.buttonMode = true;
 		toggleBtn.addEventListener(MouseEvent.CLICK, toggleMachine);
+
+		appModeMarker = cast(panel.getChildByName("appModeMarker"), MovieClip);
+		appModeMarker.stop();
+
+		databaseMarker = cast(panel.getChildByName("databaseMarker"), MovieClip);
+		databaseMarker.stop();
+
+		twitterMarker = cast(panel.getChildByName("twitterMarker"), MovieClip);
+		twitterMarker.stop();
 	}
 
 
@@ -133,7 +146,9 @@ class App extends Sprite
 	 */
 	private function onConfigurationFound(e:Event):Void
 	{
-		log("Configuration loaded. Live status: " + config.LIVE);
+		log("Configuration loaded. Setting up.");
+
+		showAppMode(config.LIVE);
 
 		Printer.setupFolders();
 
@@ -158,10 +173,14 @@ class App extends Sprite
     		db.login(config.LOGIN, config.PASS); 
         
         	log("Connected to database. Found " + db.messages.find().getDocs().length + " messages.");
+
+        	showDBConnection(true);
         }
         catch(err:Dynamic)
         {
         	log("ERROR! Couldn't connect to the database. Check internet connection.");
+
+        	showDBConnection(false);
         }
 	}
 
@@ -228,7 +247,17 @@ class App extends Sprite
         {
         	log("Adding new message to database: " + msg.message);
 
-        	db.messages.insert(msg);
+        	try
+        	{
+        		db.messages.insert(msg);
+        		showDBConnection(true);
+    		}
+    		catch(err:Dynamic)
+    		{
+    			log("Error contacting database...");
+    			showDBConnection(false);
+    		}
+
         }
         else
         {        	
@@ -286,9 +315,18 @@ class App extends Sprite
 
 		if(!isTest)
 		{
-			// Set the entry to printed in the database
-			msg.hasPrinted = true;
-	        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+			try
+        	{
+    			// Set the entry to printed in the database
+				msg.hasPrinted = true;
+		        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+        		showDBConnection(true);
+    		}
+    		catch(err:Dynamic)
+    		{
+    			log("Error contacting database...");
+    			showDBConnection(false);
+    		}
 		}
 
         // Print the actual card (saves it to a directory)
@@ -337,6 +375,30 @@ class App extends Sprite
 	{
 		readout.appendText(msg + "\n");
 		readout.scrollV = readout.maxScrollV;
+	}
+
+	public function showAppMode(isLive:Bool):Void
+	{
+		if(isLive)
+			appModeMarker.gotoAndStop(2);
+		else
+			appModeMarker.gotoAndStop(1);
+	}
+
+	public function showDBConnection(_isConnected:Bool):Void
+	{
+		if(_isConnected)
+			databaseMarker.gotoAndStop(2);
+		else
+			databaseMarker.gotoAndStop(1);
+	}
+
+	public function showTwitterConnection(_isConnected:Bool):Void
+	{
+		if(_isConnected)
+			twitterMarker.gotoAndStop(2);
+		else
+			twitterMarker.gotoAndStop(1);
 	}
 
 

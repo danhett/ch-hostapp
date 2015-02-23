@@ -102,6 +102,8 @@ class Twitter extends EventDispatcher
 	 */
 	private function onComplete(e:Event):Void
 	{
+		App.Instance().showTwitterConnection(true);
+		
 		bearerToken = haxe.Json.parse(e.target.data).access_token;
 		App.Instance().log("Access token recieved. Starting tweet check cycle.");
 
@@ -149,6 +151,8 @@ class Twitter extends EventDispatcher
 	 */
 	private function showTweets(e:Event):Void
 	{
+		App.Instance().showTwitterConnection(true);
+
 		var json:Dynamic = haxe.Json.parse(e.target.data);
 
 		if(json.statuses.length >= 1) // guards against weird returns, in case something barfed at the twitter end
@@ -175,6 +179,8 @@ class Twitter extends EventDispatcher
 	private function onIOError(e:IOErrorEvent):Void
 	{
 		App.Instance().log("Twitter error! Check internet connection.");
+
+		App.Instance().showTwitterConnection(false);
 	}
 
 
@@ -185,7 +191,10 @@ class Twitter extends EventDispatcher
 	private function onHTTPStatusEvent(e:HTTPStatusEvent):Void
 	{
 		if(e.status == 0)
+		{
 			App.Instance().log("HTTP status was zero. Check internet connection.");
+			App.Instance().showTwitterConnection(false);
+		}
 	}
 }
 

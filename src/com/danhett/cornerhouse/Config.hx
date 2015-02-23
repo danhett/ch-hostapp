@@ -55,7 +55,7 @@ class Config extends EventDispatcher
 		fast = new Fast(xml.firstElement());
 
 		LIVE = fast.node.isLive.innerData == "true" ? true : false;
-		
+
 		// Divert to the correct database depending on if we're live or not
 		if(LIVE)
 		{

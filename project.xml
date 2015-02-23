@@ -13,6 +13,6 @@
 	<icon path="assets/openfl.svg" />
 	<library path="assets/assets.swf" preload="true" />
 
-	<window width="1280" height="720" />
+	<window width="1280" height="800" />
 	
 </project>
