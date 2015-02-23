@@ -95,7 +95,6 @@ class App extends Sprite
 
 		readout = cast(panel.getChildByName("readout"), TextField);
 		readout.type = TextFieldType.DYNAMIC;
-		readout.height = 500; // fixes weird textfield scrolling bug
 
 		nameInput = cast(panel.getChildByName("nameInput"), TextField);
 		nameInput.type = TextFieldType.INPUT;
@@ -230,13 +229,13 @@ class App extends Sprite
 	 * PUSH ENTRY INTO DATABASE
 	 * Used for test panel, and also adding new tweets into the DB
 	 */
-	public function addEntry(_message:String, _submitter:String, _isTweet:Bool = false):Void
+	public function addEntry(_message:String, _submitter:String, _date:String = "", _isTweet:Bool = false):Void
 	{
 		var msg = 
         {
             message: _message,
             submitter: _submitter,
-            submitDate: Date.now(),
+            submitDate: _date == "" ? Date.now().toString() : _date,
             hasPrinted: false,
             isTweet: _isTweet
         };
@@ -272,7 +271,7 @@ class App extends Sprite
 	 */
 	public function existsInDatabase(msg:Dynamic):Bool
 	{
-		var query = db.messages.find( {message: msg.message, submitter: msg.submitter } ).getDocs();
+		var query = db.messages.find( {message: msg.message, submitter: msg.submitter, submitDate: msg.submitDate } ).getDocs();
 
 		if(query.length > 0)
 			return true;
@@ -312,8 +311,7 @@ class App extends Sprite
 	private function printMessage(msg:Dynamic, isTest:Bool = false):Void
 	{
 		log("------------------------");
-		log("Printing new message: \n" + msg.message + "\n");
-
+		log("Printing new message from " + msg.submitter + "\n" + msg.message);
 
 		if(!isTest)
 		{
@@ -321,7 +319,7 @@ class App extends Sprite
         	{
     			// Set the entry to printed in the database
 				msg.hasPrinted = true;
-		        db.messages.update({message: msg.message, submitDate:msg.submitDate}, msg); 
+		        db.messages.update({message:msg.message, submitter:msg.submitter, submitDate:msg.submitDate}, msg); 
         		showDBConnection(true);
     		}
     		catch(err:Dynamic)
@@ -375,8 +373,12 @@ class App extends Sprite
 	 */
 	public function log(msg:Dynamic):Void
 	{
+		/*
 		readout.appendText(msg + "\n");
 		readout.scrollV = readout.maxScrollV;
+		*/
+
+		trace(msg);
 	}
 
 	public function showAppMode(isLive:Bool):Void

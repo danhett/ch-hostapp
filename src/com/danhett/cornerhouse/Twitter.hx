@@ -161,8 +161,9 @@ class Twitter extends EventDispatcher
 			{
 				var messageText:String = json.statuses[i].text; // TODO - strip the URLs and format correctly
 				var messageSubmitter:String = json.statuses[i].user.screen_name;
+				var messageDate:String = json.statuses[0].created_at;
 
-		        App.Instance().addEntry(messageText, messageSubmitter, true);
+		        //App.Instance().addEntry(messageText, messageSubmitter, messageDate, true);
 			}
 		}
 		else
