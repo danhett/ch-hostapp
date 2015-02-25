@@ -10,6 +10,8 @@
 	<haxelib name="swf" />
 	
 	<assets path="assets" rename="assets" exclude="openfl.svg" />
+	<assets path="assets/fonts" rename="fonts" />
+	
 	<icon path="assets/openfl.svg" />
 	<library path="assets/assets.swf" preload="true" />
 

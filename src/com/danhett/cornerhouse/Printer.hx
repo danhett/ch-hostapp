@@ -70,25 +70,16 @@ class Printer extends EventDispatcher
 	public static function saveToDesktop(msg:String, submitter:String, submitDate:String):Void
 	{
 		var card:MovieClip = Assets.getMovieClip ("assets:Postcard");
-		var msgReadout = cast(card.getChildByName("readout"), TextField);
+		
+		var msgReadout = cast(card.getChildByName("messageReadout"), TextField);
 		msgReadout.type = TextFieldType.DYNAMIC;
 		msgReadout.multiline = true;
 		msgReadout.wordWrap = true;
-
-		var form:TextFormat = new TextFormat();
-		form.color = 0xCA3032;
-		form.size = 55;
-		form.font = "Arial";
-		form.align = TextFormatAlign.CENTER;
-		form.leading = 20;
-
-		msgReadout.defaultTextFormat = form;
 		msgReadout.text = msg;
 
-
-		var subReadout = cast(card.getChildByName("submitter"), TextField);
+		var subReadout = cast(card.getChildByName("submitterReadout"), TextField);
 		subReadout.type = TextFieldType.DYNAMIC;
-		subReadout.text = "Submitted by: " + submitter;
+		subReadout.text = "Love from " + submitter;
 
 		var image:BitmapData = new BitmapData( Std.int( card.width ), Std.int( card.height ), false, 0x00FF00);
 		image.draw(card);
