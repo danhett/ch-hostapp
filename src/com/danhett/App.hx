@@ -357,7 +357,7 @@ class App extends Sprite
 	{
 		var msg = 
         {
-            message: "This is a test print. Hello!",
+            message: "This is a test print. Hello, world!",
             submitter: "Test Name",
             submitDate: Date.now(),
             hasPrinted: false,

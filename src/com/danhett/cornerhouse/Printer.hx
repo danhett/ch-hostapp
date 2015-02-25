@@ -47,6 +47,7 @@ class Printer extends EventDispatcher
 	public static var LIVE_DIR_NAME:String = '/queue/';
 	public static var TEST_DIR_NAME:String = '/test_queue/';
 	public static var workingDirectoryPath:String;
+	private static var card:MovieClip;
 
 	public function new() 
 	{
@@ -69,21 +70,28 @@ class Printer extends EventDispatcher
 
 	public static function saveToDesktop(msg:String, submitter:String, submitDate:String):Void
 	{
-		var card:MovieClip = Assets.getMovieClip ("assets:Postcard");
+		// Create the card
+		card = Assets.getMovieClip ("assets:Postcard");
 		
+		// Create the large message readout
 		var msgReadout = cast(card.getChildByName("messageReadout"), TextField);
 		msgReadout.type = TextFieldType.DYNAMIC;
 		msgReadout.multiline = true;
 		msgReadout.wordWrap = true;
 		msgReadout.text = msg;
 
+		scaleTextToFitInTextField( msgReadout );
+
+		// Create the small "love from..." readout
 		var subReadout = cast(card.getChildByName("submitterReadout"), TextField);
 		subReadout.type = TextFieldType.DYNAMIC;
 		subReadout.text = "Love from " + submitter;
 
+		// Grab a snapshot of the whole shebang
 		var image:BitmapData = new BitmapData( Std.int( card.width ), Std.int( card.height ), false, 0x00FF00);
 		image.draw(card);
 
+		// Encode it and write it to the desktop
 		var b:ByteArray = image.encode("png", 1);
 		var fo:FileOutput = File.write( SystemPath.desktopDirectory 
 										+ workingDirectoryPath 
@@ -98,5 +106,25 @@ class Printer extends EventDispatcher
 	private static function getIndex():Int
 	{
 		return Math.round(Math.random() * 10000);
+	}
+
+
+	private static function scaleTextToFitInTextField( txt : TextField ):Void
+	{  
+		var f:TextFormat = txt.getTextFormat();
+		f.size = ( txt.width > txt.height ) ? txt.width : txt.height;
+		txt.setTextFormat( f );
+
+		while( txt.textWidth > txt.width - 4 || txt.textHeight > txt.height - 6 ) 
+		{    
+			f.size = f.size - 1;    
+			txt.setTextFormat( f );  
+		}
+
+		txt.width = txt.textWidth + 4;
+		txt.height = txt.textHeight + 4;
+
+		txt.x = (card.width / 2) - (txt.width / 2);
+		txt.y = (card.height / 2) - (txt.height / 2);
 	}
 }
