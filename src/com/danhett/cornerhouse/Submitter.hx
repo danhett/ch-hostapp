@@ -34,6 +34,7 @@ import openfl.events.HTTPStatusEvent;
 import openfl.events.IOErrorEvent;
 import openfl.events.TimerEvent;
 import openfl.net.URLLoader;
+import openfl.net.URLLoaderDataFormat;
 import openfl.net.URLRequest;
 import openfl.net.URLRequestMethod;
 import openfl.net.URLRequestHeader;
@@ -42,17 +43,48 @@ import haxe.io.Bytes;
 
 class Submitter extends EventDispatcher 
 {
-	private var ld:URLLoader;
+	private var loader:URLLoader;
 	private var req:URLRequest;
 
 	public function new() 
 	{
 		super();
+
+		loader = new URLLoader();
+		loader.dataFormat = URLLoaderDataFormat.TEXT;
+       	loader.addEventListener(Event.COMPLETE, onComplete);
+    	loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
+    	loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatusEvent);
 	}
 
-	public function submit():Void
+	public function submit(msg:Dynamic):Void
 	{
-		
+		req = new URLRequest("http://scribble.ricklab.net/message");
+		req.data = "token=" + "54eee71d33085" 
+				   + "&messageType=tweet"
+				   + "&submitter=" + msg.submitter
+				   + "&submitDate=" + msg.submitDate
+				   + "&message=" + msg.message
+				   + "&email=";
+		req.method = URLRequestMethod.POST;
+		req.contentType = "application/x-www-form-urlencoded;charset=UTF-8";
+
+		loader.load(req);
+	}
+
+	private function onComplete(e:Event):Void
+	{
+		App.Instance().log("Message submitted!");
+	}
+
+	private function onIOError(e:IOErrorEvent):Void
+	{
+		App.Instance().log("Message IOError");
+	}
+
+	private function onHTTPStatusEvent(e:HTTPStatusEvent):Void
+	{
+		App.Instance().log("Message HTTP status: " + e.status);
 	}
 }
 

@@ -27,6 +27,7 @@ package com.danhett;
 
 import com.danhett.cornerhouse.Config;
 import com.danhett.cornerhouse.Printer;
+import com.danhett.cornerhouse.Submitter;
 import com.danhett.cornerhouse.Twitter;
 
 import openfl.Assets;
@@ -69,6 +70,8 @@ class App extends Sprite
     private var appModeMarker:MovieClip;
     private var databaseMarker:MovieClip;
     private var twitterMarker:MovieClip;
+
+    private var submitter:Submitter;
 
     public var config:Config;
     public var ACTIVE:Bool = true;
@@ -156,6 +159,8 @@ class App extends Sprite
 		connectToTwitter();
 
 		startMonitoring();
+
+		submitter = new Submitter();
 	}
 
 
@@ -249,6 +254,9 @@ class App extends Sprite
         {
         	log("Adding new message to database: " + msg.message);
 
+    		submitter.submit(msg);
+
+        	/*
         	try
         	{
         		db.messages.insert(msg);
@@ -259,7 +267,7 @@ class App extends Sprite
     			log("Error contacting database...");
     			showDBConnection(false);
     		}
-
+			*/
         }
         else
         {        	
@@ -274,7 +282,7 @@ class App extends Sprite
 	 */
 	public function existsInDatabase(msg:Dynamic):Bool
 	{
-		var query = db.messages.find( {message: msg.message, submitter: msg.submitter, submitDate: msg.submitDate } ).getDocs();
+		var query = db.messages.find( {message: msg.message, submitter: msg.submitter } ).getDocs();
 
 		if(query.length > 0)
 			return true;
@@ -323,6 +331,7 @@ class App extends Sprite
     			// Set the entry to printed in the database
 				msg.hasPrinted = true;
 		        db.messages.update({message:msg.message, submitter:msg.submitter, submitDate:msg.submitDate}, msg); 
+        		
         		showDBConnection(true);
     		}
     		catch(err:Dynamic)
