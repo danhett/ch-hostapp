@@ -237,8 +237,11 @@ class App extends Sprite
             submitter: _submitter,
             submitDate: _date == "" ? Date.now().toString() : _date,
             hasPrinted: false,
-            isTweet: _isTweet
+            messageType: _isTweet == false ? "website" : "tweet"
         };
+
+        if(_isTweet)
+        	msg.submitter = "@" + _submitter;
 
         // Important: check to see if this message already exists!
         // Probably much better ways to do this stuff. 
@@ -357,11 +360,11 @@ class App extends Sprite
 	{
 		var msg = 
         {
-            message: "This is a test print. Hello, world!",
+            message: "Testing! #cornerhousescribbler",
             submitter: "Test Name",
             submitDate: Date.now(),
             hasPrinted: false,
-            isTweet: false
+            messageType: "website"
         };
 
         printMessage(msg, true);

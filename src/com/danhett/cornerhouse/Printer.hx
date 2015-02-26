@@ -105,12 +105,13 @@ class Printer extends EventDispatcher
 
 	private static function getIndex():Int
 	{
-		return Math.round(Math.random() * 10000);
+		return Math.round(Math.random() * 1000000);
 	}
 
 
 	private static function scaleTextToFitInTextField( txt : TextField ):Void
-	{  
+	{
+		/*
 		var f:TextFormat = txt.getTextFormat();
 		f.size = ( txt.width > txt.height ) ? txt.width : txt.height;
 		txt.setTextFormat( f );
@@ -118,13 +119,17 @@ class Printer extends EventDispatcher
 		while( txt.textWidth > txt.width - 4 || txt.textHeight > txt.height - 6 ) 
 		{    
 			f.size = f.size - 1;    
-			txt.setTextFormat( f );  
+			txt.setTextFormat( f );
 		}
 
 		txt.width = txt.textWidth + 4;
-		txt.height = txt.textHeight + 4;
+     	txt.height = txt.textHeight + 4;
+     	*/
+
+     	txt.height = txt.textHeight + 6;
 
 		txt.x = (card.width / 2) - (txt.width / 2);
 		txt.y = (card.height / 2) - (txt.height / 2);
 	}
 }
+

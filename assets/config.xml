@@ -21,7 +21,7 @@
 
 	<!-- Twitter configuration and API details -->
 	<twitterQuerySeconds>20</twitterQuerySeconds>
-	<twitterHashtag>cornerhouse</twitterHashtag>
+	<twitterHashtag>cornerhousescribbler</twitterHashtag>
 	<consumerKey>dJM9DLXpvPERlPM0XUtpWvVFk</consumerKey>
 	<consumerSecret>lJ3zTm0tz2Tzt6xxonv9zuP021jUcbCCmHk9jGU5wbGBEmGn5r</consumerSecret>
 	
