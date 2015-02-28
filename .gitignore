@@ -5,7 +5,7 @@ bin-release/
 
 # Other files and folders
 .settings/
-assets/databasedetails.xml
+assets/config.xml
 .DS_Store
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
