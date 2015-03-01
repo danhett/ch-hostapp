@@ -78,6 +78,7 @@ class Printer extends EventDispatcher
 		msgReadout.type = TextFieldType.DYNAMIC;
 		msgReadout.multiline = true;
 		msgReadout.wordWrap = true;
+	 	//msgReadout.autoSize = TextFieldAutoSize.CENTER;
 		msgReadout.text = msg;
 
 		scaleTextToFitInTextField( msgReadout );
@@ -105,7 +106,7 @@ class Printer extends EventDispatcher
 
 	private static function getIndex():Int
 	{
-		return Math.round(Math.random() * 1000000);
+		return Math.round(Math.random() * 10000000);
 	}
 
 
@@ -126,10 +127,18 @@ class Printer extends EventDispatcher
      	txt.height = txt.textHeight + 4;
      	*/
 
-     	txt.height = txt.textHeight + 6;
+     	txt.height = txt.textHeight + 10;
+
+ 		/*
+     	if(txt.height >= 440)
+     	{
+     		txt.height = 440;
+     		//txt.scaleX = txt.scaleY;
+     	}
+     	*/
 
 		txt.x = (card.width / 2) - (txt.width / 2);
-		txt.y = (card.height / 2) - (txt.height / 2);
+		txt.y = (card.height / 2) - (txt.height / 2) - 20;
 	}
 }
 
