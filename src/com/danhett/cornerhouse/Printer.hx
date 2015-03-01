@@ -79,7 +79,7 @@ class Printer extends EventDispatcher
 		msgReadout.multiline = true;
 		msgReadout.wordWrap = true;
 	 	//msgReadout.autoSize = TextFieldAutoSize.CENTER;
-		msgReadout.text = msg;
+		msgReadout.text = msg.split("O").join("0");
 
 		scaleTextToFitInTextField( msgReadout );
 

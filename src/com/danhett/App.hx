@@ -172,7 +172,11 @@ class App extends Sprite
         try
         {
     		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
-        	db = mongo.chtest;
+        	
+			if(config.LIVE)
+				db = mongo.chlive;
+			else
+	        	db = mongo.chtest;
 
     		db.login(config.LOGIN, config.PASS); 
         
