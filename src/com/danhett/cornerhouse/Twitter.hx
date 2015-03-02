@@ -54,9 +54,16 @@ class Twitter extends EventDispatcher
 	private var req:URLRequest;
 	private var timer:Timer;
 
+	private var blacklist:Array<String>;
+
 	public function new() 
 	{
 		super();
+
+		blacklist = new Array<String>();
+
+		blacklist.push("@CornerhouseMcr");
+		blacklist.push("@HOME_mcr");
 	}
 
 
@@ -163,13 +170,31 @@ class Twitter extends EventDispatcher
 				var messageSubmitter:String = json.statuses[i].user.screen_name;
 				var messageDate:String = json.statuses[0].created_at;
 
-		        App.Instance().addEntry(messageText, messageSubmitter, messageDate, true);
+				// only submit the message if it didn't come from the cornerhouse or dev team!
+				if( isActualMessage(messageText) && isActualMessage(messageSubmitter) )
+		        	App.Instance().addEntry(messageText, messageSubmitter, messageDate, true);
 			}
 		}
 		else
 		{
 			App.Instance().log("No tweets found for this hashtag! Something probably went wrong...");
 		}
+	}
+
+
+	/**
+	 * BLACKLIST CHECKING
+	 * Ensures the tweet hasn't come from us so we can talk about it on twitter
+	 */
+	private function isActualMessage(input:String):Bool
+	{
+		for(s in blacklist)
+		{
+			if(input.indexOf(s) != -1)
+				return false;
+		}
+
+		return true;
 	}
 
 
