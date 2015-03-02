@@ -19,6 +19,9 @@
 	<!-- Database check frequency -->
 	<seconds>10</seconds>
 
+	<!-- Printing timer: program waits this long before being able to print again -->
+	<printSeconds>5</printSeconds>
+
 	<!-- Twitter configuration and API details -->
 	<twitterQuerySeconds>30</twitterQuerySeconds>
 	<twitterHashtag>cornerhouse</twitterHashtag>

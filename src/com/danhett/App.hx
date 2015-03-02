@@ -157,7 +157,7 @@ class App extends Sprite
 
 		connectToDatabase();
 
-		//connectToTwitter();
+		connectToTwitter();
 
 		startMonitoring();
 
@@ -366,6 +366,7 @@ class App extends Sprite
 		log("Print triggered! Waiting until print cycle finishes...");
 
 		ACTIVE = false;
+		toggleBtn.gotoAndStop(2);
 
 		printTimer.start();
 	}
@@ -375,6 +376,7 @@ class App extends Sprite
 		printTimer.stop();
 
 		ACTIVE = true;
+		toggleBtn.gotoAndStop(1);
 
 		log("Printing is allowed again.");
 	}
@@ -405,8 +407,8 @@ class App extends Sprite
 		{
 			var msg = 
 	        {
-	            message: "Testing! This is a super duper massive epic mega sized message. In fact I'm not sure this will ever ever get used but OK whatever, here's a super super mega long message anyway for testing this lovely app with. Woo yay lalalala this is my awesome test message. Neat or what? Yeah! Fuck yeah. This is my longest possible message #cornerhousescribbler.",
-	            submitter: "Test Name",
+	            message: "This is a test message. #cornerhousescribbler.",
+	            submitter: "Johnny Tester",
 	            submitDate: Date.now(),
 	            hasPrinted: false,
 	            messageType: "website"

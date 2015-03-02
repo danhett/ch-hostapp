@@ -60,7 +60,7 @@ class Submitter extends EventDispatcher
 	public function submit(msg:Dynamic):Void
 	{
 		req = new URLRequest("http://scribble.ricklab.net/message");
-		req.data = "token=" + "54eee71d33085" 
+		req.data = "token=54eee71d33085" 
 				   + "&messageType=tweet"
 				   + "&submitter=" + msg.submitter
 				   + "&submitDate=" + msg.submitDate
