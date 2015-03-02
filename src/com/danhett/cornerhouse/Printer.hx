@@ -78,7 +78,6 @@ class Printer extends EventDispatcher
 		msgReadout.type = TextFieldType.DYNAMIC;
 		msgReadout.multiline = true;
 		msgReadout.wordWrap = true;
-	 	//msgReadout.autoSize = TextFieldAutoSize.CENTER;
 		msgReadout.text = msg.split("O").join("0");
 
 		scaleTextToFitInTextField( msgReadout );
@@ -106,7 +105,10 @@ class Printer extends EventDispatcher
 		// clear up
 		image.dispose();
 		image = null;
+		msgReadout = null;
+		subReadout = null;
 		card = null;
+		fo = null;
 	}
 
 	private static function getIndex():Int

@@ -401,16 +401,23 @@ class App extends Sprite
 	 */
 	private function doTestPrint(e:MouseEvent):Void
 	{
-		var msg = 
-        {
-            message: "Testing! This is a super duper massive epic mega sized message. In fact I'm not sure this will ever ever get used but OK whatever, here's a super super mega long message anyway for testing this lovely app with. Woo yay lalalala this is my awesome test message. Neat or what? Yeah! Fuck yeah. This is my longest possible message #cornerhousescribbler.",
-            submitter: "Test Name",
-            submitDate: Date.now(),
-            hasPrinted: false,
-            messageType: "website"
-        };
+		if(ACTIVE)
+		{
+			var msg = 
+	        {
+	            message: "Testing! This is a super duper massive epic mega sized message. In fact I'm not sure this will ever ever get used but OK whatever, here's a super super mega long message anyway for testing this lovely app with. Woo yay lalalala this is my awesome test message. Neat or what? Yeah! Fuck yeah. This is my longest possible message #cornerhousescribbler.",
+	            submitter: "Test Name",
+	            submitDate: Date.now(),
+	            hasPrinted: false,
+	            messageType: "website"
+	        };
 
-        printMessage(msg, true);
+	        printMessage(msg, true);
+		}
+		else
+		{
+			log("Woah there. Something's already printing, hold on.");
+		}
 	}
 
 
