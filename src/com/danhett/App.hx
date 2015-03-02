@@ -156,7 +156,7 @@ class App extends Sprite
 
 		connectToDatabase();
 
-		connectToTwitter();
+		//connectToTwitter();
 
 		startMonitoring();
 
@@ -180,7 +180,7 @@ class App extends Sprite
 
     		db.login(config.LOGIN, config.PASS); 
         
-        	log("Connected to database. Found " + db.messages.find().getDocs().length + " messages.");
+        	log("Connected to database!");
 
         	showDBConnection(true);
         }
@@ -260,6 +260,8 @@ class App extends Sprite
 
     		submitter.submit(msg);
 
+    		stopPrintingWhilePrinting();
+
         	/*
         	try
         	{
@@ -286,10 +288,18 @@ class App extends Sprite
 	 */
 	public function existsInDatabase(msg:Dynamic):Bool
 	{
-		var query = db.messages.find( {message: msg.message, submitter: msg.submitter } ).getDocs();
+		try
+		{
+			var query = db.messages.find( {message: msg.message, submitter: msg.submitter } ).getDocs();
 
-		if(query.length > 0)
-			return true;
+			if(query.length > 0)
+				return true;
+		}
+		catch(err:Dynamic)
+		{
+			log("ERROR: existsInDatabase() check failed");
+			return false;
+		}
 
 		return false;
 	}
@@ -301,20 +311,33 @@ class App extends Sprite
 	 */
 	private function findNextUnprintedMessage(e:TimerEvent):Void
 	{		
-		found = false;
-
 		if(ACTIVE)
 		{
-			for(message in db.messages.find()) 
-	        {
-	            if(message.hasPrinted == false)
-	            {
-	            	var unprintedMessage = message;
-	            	printMessage(unprintedMessage);
-	            	found = true;
-	            	break;
-	            }
-	        }
+			try
+			{
+				var message = db.messages.findOne({hasPrinted:false});
+				
+				if(message != null)
+					printMessage(message);
+				else
+					log("No messages to print");
+
+				/*
+				for(message in db.messages.find()) 
+		        {
+		            if(message.hasPrinted == false)
+		            {
+		            	var unprintedMessage = message;
+		            	printMessage(unprintedMessage);
+		            	break;
+		            }
+		        }
+		        */
+			}
+			catch(err:Dynamic)
+			{
+				log("ERROR: findNextUnprintedMessage() call failed: " + err);
+			}
 		}
 	}
 
@@ -327,6 +350,7 @@ class App extends Sprite
 	{
 		log("------------------------");
 		log("Printing new message from " + msg.submitter + "\n" + msg.message);
+		log("------------------------");
 
 		if(!isTest)
 		{
@@ -345,8 +369,26 @@ class App extends Sprite
     		}
 		}
 
-        // Print the actual card (saves it to a directory)
-		Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
+        // Print the actual card (saves it to a directory
+        try
+        {
+        	Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
+        }
+        catch(err:Dynamic)
+        {
+        	log("ERROR: saving to desktop failed");
+        }
+	}
+
+
+	/**
+	 * SUPPRESS PRINTING FOR PRINT PERIOD
+	 * Stops the printer printing another message for a short amount of time.
+	 * This is to stop tons of messages stacking up and lets us have a faster query.
+	 */
+	private function stopPrintingWhilePrinting():Void
+	{
+		
 	}
 
 

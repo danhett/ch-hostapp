@@ -102,6 +102,11 @@ class Printer extends EventDispatcher
 		
 		fo.writeString(b.toString());
 		fo.close();
+
+		// clear up
+		image.dispose();
+		image = null;
+		card = null;
 	}
 
 	private static function getIndex():Int
@@ -127,18 +132,16 @@ class Printer extends EventDispatcher
      	txt.height = txt.textHeight + 4;
      	*/
 
-     	txt.height = txt.textHeight + 10;
+     	txt.height = txt.textHeight;
 
- 		/*
      	if(txt.height >= 440)
      	{
      		txt.height = 440;
-     		//txt.scaleX = txt.scaleY;
+     		txt.scaleX = txt.scaleY;
      	}
-     	*/
-
+     	
 		txt.x = (card.width / 2) - (txt.width / 2);
-		txt.y = (card.height / 2) - (txt.height / 2) - 20;
+		txt.y = (card.height / 2) - (txt.height / 2);
 	}
 }
 

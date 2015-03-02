@@ -74,17 +74,18 @@ class Submitter extends EventDispatcher
 
 	private function onComplete(e:Event):Void
 	{
-		App.Instance().log("Message submitted!");
+		App.Instance().log("SUCCESS: Tweet submitted successfully to database.");
 	}
 
 	private function onIOError(e:IOErrorEvent):Void
 	{
-		App.Instance().log("Message IOError");
+		App.Instance().log("ERROR: IOError when submitting tweet to database.");
 	}
 
 	private function onHTTPStatusEvent(e:HTTPStatusEvent):Void
 	{
-		App.Instance().log("Message HTTP status: " + e.status);
+		if(e.status != 201) // i.e. if it didn't succeed
+			App.Instance().log("Message HTTP status: " + e.status);
 	}
 }
 
