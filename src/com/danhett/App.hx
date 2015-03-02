@@ -67,10 +67,16 @@ class App extends Sprite
     private var toggleBtn:MovieClip;
     private var testPrint:MovieClip;
     private var unprinted:Array<Dynamic>;
-
     private var appModeMarker:MovieClip;
     private var databaseMarker:MovieClip;
     private var twitterMarker:MovieClip;
+
+    private var reconnectTimer:Timer;
+    private var currentFailures:Int = 0;
+    private var failureThreshold:Int = 5;
+    private var reconnectionTime:Int = 120;
+    private var currentReconnectionAttempts:Int = 0;
+    private var maxReconnectionAttempts:Int = 10;
 
     private var submitter:Submitter;
 
@@ -284,6 +290,9 @@ class App extends Sprite
 		catch(err:Dynamic)
 		{
 			log("ERROR: existsInDatabase() check failed");
+
+			tagFailure();
+			
 			return false;
 		}
 
@@ -311,6 +320,8 @@ class App extends Sprite
 			catch(err:Dynamic)
 			{
 				log("ERROR: findNextUnprintedMessage() call failed: " + err);
+
+				tagFailure();
 			}
 		}
 	}
@@ -339,7 +350,10 @@ class App extends Sprite
     		catch(err:Dynamic)
     		{
     			log("Error contacting database...");
+
     			showDBConnection(false);
+
+    			tagFailure();
     		}
 		}
 
@@ -420,6 +434,71 @@ class App extends Sprite
 		{
 			log("Woah there. Something's already printing, hold on.");
 		}
+	}
+
+
+	/**
+	 * RECONNECTION
+	 * Check if there have been a ton of failed requests, and if so
+	 * attempt to reconnect the database service. 
+	 */
+	public function tagFailure():Void
+	{
+		currentFailures++;
+
+		if(currentFailures == failureThreshold)
+		{
+			log("Failures reached threshold, attempting reconnect...");
+
+			showDBConnection(false);
+			
+			startReconnectionTimer();
+		}
+	}
+
+	private function startReconnectionTimer():Void
+	{
+		reconnectTimer = new Timer(reconnectionTime * 1000);
+		reconnectTimer.addEventListener(TimerEvent.TIMER, makeReconnectionAttempt);
+		reconnectTimer.start();
+	}
+
+	private function makeReconnectionAttempt(e:TimerEvent):Void
+	{
+		try
+        {
+    		mongo = new Mongo(config.MONGO_URL, config.MONGO_PORT);
+        	
+			if(config.LIVE)
+				db = mongo.chlive;
+			else
+	        	db = mongo.chtest;
+
+    		db.login(config.LOGIN, config.PASS); 
+        
+        	log("Reconnected to database!");
+
+        	showDBConnection(true);
+
+        	reconnectTimer.stop();
+
+        	currentReconnectionAttempts = 0;
+        	currentFailures = 0;
+        }
+        catch(err:Dynamic)
+        {
+    		if(currentReconnectionAttempts <= maxReconnectionAttempts)
+    		{
+    			currentReconnectionAttempts++;
+    			log("Couldn't reconnect. Retrying...");
+    		}
+    		else
+    		{
+    			log("CRITICAL FAILURE: Couldn't reconnect to the database.");	
+
+    			// if we get here, something's super wrong. Print a clear message and give up. :(
+    		}
+        }
 	}
 
 
