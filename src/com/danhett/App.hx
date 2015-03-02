@@ -429,7 +429,7 @@ class App extends Sprite
 	public function log(msg:Dynamic):Void
 	{
 		readout.appendText(msg + "\n");
-		readout.scrollV = readout.maxScrollV;
+		readout.scrollV = readout.numLines;
 	}
 
 	public function showAppMode(isLive:Bool):Void
