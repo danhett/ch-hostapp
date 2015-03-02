@@ -61,6 +61,7 @@ class App extends Sprite
     private var nameInput:TextField;
     private var messageInput:TextField;
     private var timer:Timer;
+    private var printTimer:Timer;
     private var twitter:Twitter;
     private var found:Bool;
     private var toggleBtn:MovieClip;
@@ -211,6 +212,10 @@ class App extends Sprite
 		timer = new Timer(config.SECONDS * 1000);
 		timer.addEventListener(TimerEvent.TIMER, findNextUnprintedMessage);
 		timer.start();
+
+		// make the print timer
+		printTimer = new Timer(config.PRINT_SECONDS * 1000);
+		printTimer.addEventListener(TimerEvent.TIMER, allowPrintingAgain);
 	}
 
 
@@ -259,25 +264,6 @@ class App extends Sprite
         	log("Adding new message to database: " + msg.message);
 
     		submitter.submit(msg);
-
-    		stopPrintingWhilePrinting();
-
-        	/*
-        	try
-        	{
-        		db.messages.insert(msg);
-        		showDBConnection(true);
-    		}
-    		catch(err:Dynamic)
-    		{
-    			log("Error contacting database...");
-    			showDBConnection(false);
-    		}
-			*/
-        }
-        else
-        {        	
-    		// message is already in the database, do nothing for now.
         }
 	}
 
@@ -321,18 +307,6 @@ class App extends Sprite
 					printMessage(message);
 				else
 					log("No messages to print");
-
-				/*
-				for(message in db.messages.find()) 
-		        {
-		            if(message.hasPrinted == false)
-		            {
-		            	var unprintedMessage = message;
-		            	printMessage(unprintedMessage);
-		            	break;
-		            }
-		        }
-		        */
 			}
 			catch(err:Dynamic)
 			{
@@ -358,8 +332,8 @@ class App extends Sprite
         	{
     			// Set the entry to printed in the database
 				msg.hasPrinted = true;
-		        db.messages.update({message:msg.message, submitter:msg.submitter, submitDate:msg.submitDate}, msg); 
-        		
+		        db.messages.update({message:msg.message, submitter:msg.submitter, submitDate:msg.submitDate}, msg);
+
         		showDBConnection(true);
     		}
     		catch(err:Dynamic)
@@ -373,6 +347,7 @@ class App extends Sprite
         try
         {
         	Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
+        	stopPrintingWhilePrinting();
         }
         catch(err:Dynamic)
         {
@@ -388,7 +363,20 @@ class App extends Sprite
 	 */
 	private function stopPrintingWhilePrinting():Void
 	{
-		
+		log("Print triggered! Waiting until print cycle finishes...");
+
+		ACTIVE = false;
+
+		printTimer.start();
+	}
+
+	private function allowPrintingAgain(e:TimerEvent):Void
+	{
+		printTimer.stop();
+
+		ACTIVE = true;
+
+		log("Printing is allowed again.");
 	}
 
 

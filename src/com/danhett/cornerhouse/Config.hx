@@ -37,6 +37,7 @@ class Config extends EventDispatcher
 	public var LOGIN:String;
 	public var PASS:String;
 	public var SECONDS:Int;
+	public var PRINT_SECONDS:Int;
 	public var TWITTER_QUERY_SECONDS:Int;
 	public var TWITTER_HASHTAG:String;
 	public var CONSUMER_KEY:String;
@@ -73,6 +74,7 @@ class Config extends EventDispatcher
 		}
 		
 		SECONDS = Std.parseInt(fast.node.seconds.innerData);
+		PRINT_SECONDS = Std.parseInt(fast.node.printSeconds.innerData);
 
 		TWITTER_QUERY_SECONDS = Std.parseInt(fast.node.twitterQuerySeconds.innerData);
 		TWITTER_HASHTAG = fast.node.twitterHashtag.innerData;
