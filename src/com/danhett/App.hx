@@ -314,8 +314,6 @@ class App extends Sprite
 				
 				if(message != null)
 					printMessage(message);
-				else
-					log("No messages to print");
 			}
 			catch(err:Dynamic)
 			{
@@ -421,8 +419,8 @@ class App extends Sprite
 		{
 			var msg = 
 	        {
-	            message: "This is a test message. #cornerhousescribbler.",
-	            submitter: "Johnny Tester",
+	            message: "Test #cornerhousescribbler",
+	            submitter: "Test Name",
 	            submitDate: Date.now(),
 	            hasPrinted: false,
 	            messageType: "website"

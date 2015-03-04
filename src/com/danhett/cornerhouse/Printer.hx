@@ -62,9 +62,9 @@ class Printer extends EventDispatcher
 		if( !FileSystem.exists( SystemPath.desktopDirectory + TEST_DIR_NAME) )
 			FileSystem.createDirectory( SystemPath.desktopDirectory + TEST_DIR_NAME );
 
-		if(App.Instance().config.LIVE)
-			workingDirectoryPath = LIVE_DIR_NAME;
-		else
+		//if(App.Instance().config.LIVE)
+			//workingDirectoryPath = LIVE_DIR_NAME;
+		//else
 			workingDirectoryPath = TEST_DIR_NAME;
 	}
 
@@ -78,9 +78,17 @@ class Printer extends EventDispatcher
 		msgReadout.type = TextFieldType.DYNAMIC;
 		msgReadout.multiline = true;
 		msgReadout.wordWrap = true;
-		msgReadout.text = msg.split("O").join("0");
+		//msgReadout.autoSize = TextFieldAutoSize.LEFT;
+		msgReadout.text = msg.split("O").join("0"); // fix for weird char bug
 
-		scaleTextToFitInTextField( msgReadout );
+		if(msgReadout.text.length < 30)
+		{
+			scaleTextToFitInTextField( msgReadout, true );	
+		}
+		else
+		{
+			scaleTextToFitInTextField( msgReadout );
+		}
 
 		// Create the small "love from..." readout
 		var subReadout = cast(card.getChildByName("submitterReadout"), TextField);
@@ -117,33 +125,38 @@ class Printer extends EventDispatcher
 	}
 
 
-	private static function scaleTextToFitInTextField( txt : TextField ):Void
+	private static function scaleTextToFitInTextField( txt : TextField, isBodge:Bool = false):Void
 	{
-		/*
-		var f:TextFormat = txt.getTextFormat();
-		f.size = ( txt.width > txt.height ) ? txt.width : txt.height;
-		txt.setTextFormat( f );
+		if(!isBodge)
+		{
+			var f:TextFormat = txt.getTextFormat();
 
-		while( txt.textWidth > txt.width - 4 || txt.textHeight > txt.height - 6 ) 
-		{    
-			f.size = f.size - 1;    
+			f.size = ( txt.width > txt.height ) ? txt.width : txt.height;
 			txt.setTextFormat( f );
+
+			while( txt.textWidth > 900 || txt.textHeight > 440 ) 
+			{    
+				f.size = f.size - 1;    
+				txt.setTextFormat( f );
+			}
+
+			txt.width = txt.textWidth + 4;
+	     	txt.height = txt.textHeight + 4;
+		}
+		else
+		{
+			txt.height = txt.textHeight;
+
+	     	if(txt.height >= 440)
+	     	{
+	     		txt.height = 440;
+	     		txt.scaleX = txt.scaleY;
+	     	}
 		}
 
-		txt.width = txt.textWidth + 4;
-     	txt.height = txt.textHeight + 4;
-     	*/
-
-     	txt.height = txt.textHeight;
-
-     	if(txt.height >= 440)
-     	{
-     		txt.height = 440;
-     		txt.scaleX = txt.scaleY;
-     	}
-     	
 		txt.x = (card.width / 2) - (txt.width / 2);
 		txt.y = (card.height / 2) - (txt.height / 2);
 	}
+
 }
 

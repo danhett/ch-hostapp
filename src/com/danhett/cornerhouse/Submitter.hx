@@ -84,8 +84,11 @@ class Submitter extends EventDispatcher
 
 	private function onHTTPStatusEvent(e:HTTPStatusEvent):Void
 	{
-		if(e.status != 201) // i.e. if it didn't succeed
+		if(e.status != 201 && e.status != 400) // i.e. if it didn't succeed
 			App.Instance().log("Message HTTP status: " + e.status);
+
+		if(e.status == 400)
+			App.Instance().log("Profanity found in message. Pushing to DB but not printing.");
 	}
 }
 
