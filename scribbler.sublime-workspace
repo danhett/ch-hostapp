@@ -1,0 +1,711 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mess",
+				"messageSubmitter"
+			],
+			[
+				"message",
+				"messageSubmitter"
+			],
+			[
+				"Tex",
+				"TextFieldAutoSize"
+			],
+			[
+				"curre",
+				"currentReconnectionAttempts"
+			],
+			[
+				"reconnectionA",
+				"currentReconnectionAttempts"
+			],
+			[
+				"recon",
+				"reconnectionTime"
+			],
+			[
+				"failure",
+				"failureThreshold"
+			],
+			[
+				"stop",
+				"stopPrintingWhilePrinting"
+			],
+			[
+				"all",
+				"allowPrintingAgain"
+			],
+			[
+				"text",
+				"textHeight"
+			],
+			[
+				"Tes",
+				"TextFieldAutoSize"
+			],
+			[
+				"URL",
+				"URLLoader"
+			],
+			[
+				"on",
+				"onHTTPStatusEvent"
+			],
+			[
+				"mes",
+				"messageSubmitter"
+			],
+			[
+				"Event",
+				"EventDispatcher"
+			],
+			[
+				"messa",
+				"messageText"
+			],
+			[
+				"twitter",
+				"twitterMarker"
+			],
+			[
+				"db",
+				"databaseMarker"
+			],
+			[
+				"Timer",
+				"TimerEvent"
+			],
+			[
+				"I",
+				"Instance"
+			],
+			[
+				"IO",
+				"IOErrorEvent"
+			],
+			[
+				"TWIT",
+				"TWITTER_QUERY_SECONDS"
+			],
+			[
+				"toggle",
+				"toggleBtn"
+			],
+			[
+				"submit",
+				"submitDate"
+			],
+			[
+				"su",
+				"submitDate"
+			],
+			[
+				"get",
+				"getDocs"
+			],
+			[
+				"connect",
+				"connectToDatabase"
+			],
+			[
+				"Key",
+				"Keyboard"
+			],
+			[
+				"paddle",
+				"paddleGraphic"
+			],
+			[
+				"stage",
+				"stageHeight"
+			],
+			[
+				"chec",
+				"checkKeys"
+			],
+			[
+				"submi",
+				"submitAnswers"
+			],
+			[
+				"setup",
+				"setupMongo"
+			],
+			[
+				"v",
+				"Void	class"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "assets/config.xml",
+			"settings":
+			{
+				"buffer_size": 1013,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/com/danhett/App.hx",
+			"settings":
+			{
+				"buffer_size": 12591,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/com/danhett/cornerhouse/Config.hx",
+			"settings":
+			{
+				"buffer_size": 2811,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/com/danhett/cornerhouse/Printer.hx",
+			"settings":
+			{
+				"buffer_size": 4688,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/com/danhett/cornerhouse/Submitter.hx",
+			"settings":
+			{
+				"buffer_size": 3058,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/com/danhett/cornerhouse/Twitter.hx",
+			"settings":
+			{
+				"buffer_size": 6723,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 347.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Add Repository"
+			],
+			[
+				"Package Control: a",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: add",
+				"Package Control: Add Channel"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: update",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control",
+				"Package Control: Add Channel"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/Twitter.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/Submitter.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/App.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/Config.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/Printer.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/assets/config.xml",
+		"/Users/danhett/Desktop/lights.py",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/Gatekeeper.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/ProfanityChecker.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/AppEvent.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hardware/CornerhouseHardware/CornerhouseHardware.ino",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-hostapp/src/com/danhett/cornerhouse/Machine.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-site/index.html",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-site/js/submission.js",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/AirDeviceIdExtensionContext.java",
+		"/Users/danhett/Desktop/index.html",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/AirDeviceIdExtension.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/actionscript/src/com/freshplanet/ane/AirDeviceId.as",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/functions/IsSupportedFunction.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/build/platformIOS.xml",
+		"/Users/danhett/Desktop/ANE-DeviceId/build/platformANDROID.xml",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/functions/getTap.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/build/build.xml",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/functions/isUsingVoiceover.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/AndroidManifest.xml",
+		"/Users/danhett/Desktop/ANE-DeviceId/build/extension.xml",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/android/src/com/freshplanet/capabilities/IsUsingVoiceover.java",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/android/src/com/freshplanet/capabilities/HasTwitterFunction.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/functions/getIDFunction.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/android/src/com/freshplanet/ane/AirDeviceId/functions/getIDFAFunction.java",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/android/src/com/freshplanet/capabilities/ExtensionContext.java",
+		"/Users/danhett/Desktop/ANE-DeviceId/build/build.config",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/actionscript/src/com/freshplanet/nativeExtensions/AirCapabilities.as",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/android/AndroidManifest.xml",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/build/platform.xml",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/build/extension.xml",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/build/build.xml",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/actionscript/src/com/freshplanet/nativeExtensions/NativeLogger.as",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/actionscript/src/com/freshplanet/nativeExtensions/INativeLogger.as",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/android/src/com/freshplanet/capabilities/Extension.java",
+		"/Users/danhett/Desktop/ANE-AirCapabilities/android/src/com/freshplanet/capabilities/CanOpenURLFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/build/extension.xml",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/build/build.xml",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/build/build.config",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/README.md",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/AndroidManifest.xml",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/Extension.java",
+		"/Users/danhett/Desktop/native extension/ANE-AirCapabilities-master/android/src/com/freshplanet/capabilities/Extension.java",
+		"/Users/danhett/Desktop/native extension/ANE-AirCapabilities-master/android/AndroidManifest.xml",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/ExtensionContext.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/CanOpenURLFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/GetDeviceModel.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/GetOSVersionFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/HasSMSFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/HasTwitterFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/LogFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/OpenURLFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/PostPictureOnTwitterFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/ProcessReferralLinkFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/RedirectToPageIdFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/RedirectToRatingFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/RedirectToTwitterAccount.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/SendWithSMSFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/SendWithTwitterFunction.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/android/src/uk/co/bbc/SetLogging.java",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/DefaultLogger.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/INativeLogger.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/NativeFeatures.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/NativeLogger.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/OpenURLEvent.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/build/platform.xml",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/nativeextension/AirCapabilities.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/nativeextension/DefaultLogger.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/nativeextension/INativeLogger.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/nativeextension/NativeLogger.as",
+		"/Users/danhett/Desktop/cbeebies-storytime-extensions/actionscript/src/uk/co/bbc/nativeextension/OpenURLEvent.as",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/build/extension.xml",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/build/build.xml",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/build/build.config",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/CanOpenURLFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/Extension.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/ExtensionContext.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/GetDeviceModel.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/GetOSVersionFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/HasSMSFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/HasTwitterFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/LogFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/OpenURLFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/PostPictureOnTwitterFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/ProcessReferralLinkFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/RedirectToPageIdFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/RedirectToRatingFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/RedirectToTwitterAccount.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/SendWithSMSFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/SendWithTwitterFunction.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/src/uk/co/bbc/nativefeatures/SetLogging.java",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/android/AndroidManifest.xml",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/actionscript/src/uk/co/bbc/nativefeatures/AirCapabilities.as",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/actionscript/src/uk/co/bbc/nativefeatures/DefaultLogger.as",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/actionscript/src/uk/co/bbc/nativefeatures/INativeLogger.as",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/actionscript/src/uk/co/bbc/nativefeatures/NativeLogger.as",
+		"/Users/danhett/Desktop/native extension/BBCNativeFeatures/actionscript/src/uk/co/bbc/nativefeatures/OpenURLEvent.as",
+		"/Users/danhett/Documents/Cornerhouse/Installation/ch-site/submission.js",
+		"/Users/danhett/Desktop/ANE-AirCapabilities-master/android/AndroidManifest.xml",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/cornerhouse/Twitter.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/App.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/cornerhouse/Machine.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/cornerhouse/TwitterChecker.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/cornerhouse/Printer.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/cornerhouse/Config.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/project.xml",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/Cornerhouse.hx",
+		"/Users/danhett/Documents/Cornerhouse/Installation/leaveamessage/src/com/danhett/Main.hx",
+		"/Users/danhett/Desktop/ANE-AirCapabilities-master/build/build.config",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/01_empty_project/Source/Main.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/04_Invaders/Source/Main.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/03_Driving/Source/Main.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/03_Driving/Source/Car.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/02_Pong/Source/Main.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/03_Driving/Source/BasicGame.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101_site/software.html",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101_site/assets.html",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/05_Platformer/Source/Player.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/05_Platformer/Source/Main.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/05_Platformer/Source/BasicGame.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/05_Platformer/Source/GameObject.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/05_Platformer/Source/LevelBuilder.hx",
+		"/Users/danhett/Documents/GAMEDEV101/gamedev101/Level02/05_Platformer/Source/Platform.hx"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Timer",
+			"showDBConnection(true);",
+			"for",
+			"log",
+			"stopPrin",
+			"stopPrintingWhilePrinting",
+			"found",
+			"startMonitor",
+			"db",
+			"findNext",
+			"test",
+			"chtest",
+			"chtet",
+			"testPrint",
+			"submitNewResponse",
+			"test",
+			"method",
+			"isTweet",
+			"variables",
+			"Machine",
+			"import",
+			";\n",
+			"Air",
+			"fresh",
+			"freshs",
+			"fresh",
+			"clip",
+			"Basic",
+			";\n",
+			"800",
+			"500",
+			"span",
+			">\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "assets/config.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1013,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/com/danhett/App.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12591,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ActionScript/ActionScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/com/danhett/cornerhouse/Config.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2811,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ActionScript/ActionScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/com/danhett/cornerhouse/Printer.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4688,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ActionScript/ActionScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/com/danhett/cornerhouse/Submitter.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3058,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ActionScript/ActionScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/com/danhett/cornerhouse/Twitter.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ActionScript/ActionScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "scribbler.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

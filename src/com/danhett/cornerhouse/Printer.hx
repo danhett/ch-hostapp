@@ -62,9 +62,9 @@ class Printer extends EventDispatcher
 		if( !FileSystem.exists( SystemPath.desktopDirectory + TEST_DIR_NAME) )
 			FileSystem.createDirectory( SystemPath.desktopDirectory + TEST_DIR_NAME );
 
-		//if(App.Instance().config.LIVE)
-			//workingDirectoryPath = LIVE_DIR_NAME;
-		//else
+		if(App.Instance().config.LIVE)
+			workingDirectoryPath = LIVE_DIR_NAME;
+		else
 			workingDirectoryPath = TEST_DIR_NAME;
 	}
 
@@ -81,7 +81,7 @@ class Printer extends EventDispatcher
 		//msgReadout.autoSize = TextFieldAutoSize.LEFT;
 		msgReadout.text = msg.split("O").join("0"); // fix for weird char bug
 
-		if(msgReadout.text.length < 30)
+		if(msgReadout.text.length < 45)
 		{
 			scaleTextToFitInTextField( msgReadout, true );	
 		}

@@ -358,13 +358,18 @@ class App extends Sprite
         // Print the actual card (saves it to a directory
         try
         {
-        	Printer.saveToDesktop(msg.message, msg.submitter, msg.submitDate);
+        	Printer.saveToDesktop( stripNewlines(msg.message), msg.submitter, msg.submitDate);
         	stopPrintingWhilePrinting();
         }
         catch(err:Dynamic)
         {
         	log("ERROR: saving to desktop failed");
         }
+	}
+
+	private function stripNewlines(txt:String):String
+	{
+		return txt.split("\n").join("").split("\r").join("");
 	}
 
 
@@ -419,7 +424,7 @@ class App extends Sprite
 		{
 			var msg = 
 	        {
-	            message: "Test #cornerhousescribbler",
+	            message: "This is a test print. Hello, world! :)",
 	            submitter: "Test Name",
 	            submitDate: Date.now(),
 	            hasPrinted: false,

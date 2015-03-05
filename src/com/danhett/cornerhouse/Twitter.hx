@@ -64,6 +64,10 @@ class Twitter extends EventDispatcher
 
 		blacklist.push("@CornerhouseMcr");
 		blacklist.push("@HOME_mcr");
+		blacklist.push("@danhett");
+		blacklist.push("@studioaudienced");
+		blacklist.push("@rickogden");
+		blacklist.push("@cornerhousetest");
 	}
 
 
@@ -171,8 +175,14 @@ class Twitter extends EventDispatcher
 				var messageDate:String = json.statuses[0].created_at;
 
 				// only submit the message if it didn't come from the cornerhouse or dev team!
-				if( isActualMessage(messageText) && isActualMessage(messageSubmitter) )
-		        	App.Instance().addEntry(messageText, messageSubmitter, messageDate, true);
+				if( isActualMessage(messageText) && isActualMessage("@" + messageSubmitter) )
+				{
+					App.Instance().addEntry(messageText, messageSubmitter, messageDate, true);
+				}
+				else
+				{
+					App.Instance().log("Tweet found from disallowed user: " + messageSubmitter + ". Not submitting."); 
+				}
 			}
 		}
 		else
@@ -190,7 +200,7 @@ class Twitter extends EventDispatcher
 	{
 		for(s in blacklist)
 		{
-			if(input.indexOf(s) != -1)
+			if(input.toLowerCase().indexOf(s.toLowerCase()) != -1)
 				return false;
 		}
 
