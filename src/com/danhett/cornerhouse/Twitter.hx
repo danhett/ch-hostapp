@@ -200,7 +200,8 @@ class Twitter extends EventDispatcher
 	{
 		for(s in blacklist)
 		{
-			if(input.toLowerCase().indexOf(s.toLowerCase()) != -1)
+			if(input.toLowerCase().indexOf(s.toLowerCase()) == 0 || 
+				input.toLowerCase().indexOf("rt "+s.toLowerCase() == 0)
 				return false;
 		}
 
