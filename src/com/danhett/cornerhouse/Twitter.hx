@@ -175,13 +175,15 @@ class Twitter extends EventDispatcher
 				var messageDate:String = json.statuses[0].created_at;
 
 				// only submit the message if it didn't come from the cornerhouse or dev team!
-				if( isActualMessage(messageText) && isActualMessage("@" + messageSubmitter) )
+				if( isActualMessage(messageSubmitter, messageText) )
 				{
+					//trace("Adding message from " + messageSubmitter + ": " + messageText);
 					App.Instance().addEntry(messageText, messageSubmitter, messageDate, true);
 				}
 				else
 				{
-					App.Instance().log("Tweet found from disallowed user: " + messageSubmitter + ". Not submitting."); 
+					//trace("Shitlisted tweet from " + messageSubmitter + ": " + messageText);	
+					//App.Instance().log("Tweet found from disallowed user: " + messageSubmitter + ". Not submitting."); 
 				}
 			}
 		}
@@ -196,15 +198,21 @@ class Twitter extends EventDispatcher
 	 * BLACKLIST CHECKING
 	 * Ensures the tweet hasn't come from us so we can talk about it on twitter
 	 */
-	private function isActualMessage(input:String):Bool
+	private function isActualMessage(submitterText:String, messageText:String):Bool
 	{
 		for(s in blacklist)
 		{
-			if((input.toLowerCase().indexOf(s.toLowerCase()) == 0 )|| 
-				(input.toLowerCase().indexOf("rt "+s.toLowerCase()) == 0))
+			// check to see if the person submitting is blacklisted
+			if( s.toLowerCase().indexOf( submitterText ) != -1  )
+				return false;
+
+			// check to see if the message contains a manual retweet specifically
+			// this also catches 'normal' retweets as they're formatted identically in the API
+			if( messageText.toLowerCase().indexOf("rt "+s.toLowerCase()) != -1)
 				return false;
 		}
 
+		// if we get here, the message is probably fine!
 		return true;
 	}
 
