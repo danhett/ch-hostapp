@@ -61,11 +61,11 @@ class Submitter extends EventDispatcher
 	{
 		req = new URLRequest("http://scribble.ricklab.net/message");
 		req.data = "token=54eee71d33085" 
-				   + "&messageType=tweet"
-				   + "&submitter=" + msg.submitter
-				   + "&submitDate=" + msg.submitDate
-				   + "&message=" + msg.message
-				   + "&email=";
+				 + "&messageType=tweet"
+				 + "&submitter=" + StringTools.urlEncode(msg.submitter)
+				 + "&submitDate=" + StringTools.urlEncode(msg.submitDate)
+				 + "&message=" + StringTools.urlEncode(msg.message)
+				 + "&email=";
 		req.method = URLRequestMethod.POST;
 		req.contentType = "application/x-www-form-urlencoded;charset=UTF-8";
 

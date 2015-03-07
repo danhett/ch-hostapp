@@ -47,7 +47,7 @@ class Twitter extends EventDispatcher
 	private var bearerToken:String;
 
 	private var hashtag:String;
-	private var count:Int = 10; // number of tweets per request
+	private var count:Int = 1; // number of tweets per request
 	private var seconds:Int;
 
 	private var ld:URLLoader;
