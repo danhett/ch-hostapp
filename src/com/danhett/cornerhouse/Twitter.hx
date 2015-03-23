@@ -203,7 +203,7 @@ class Twitter extends EventDispatcher
 		for(s in blacklist)
 		{
 			// check to see if the person submitting is blacklisted
-			if( s.toLowerCase().indexOf( submitterText ) != -1  )
+			if( s.toLowerCase().indexOf( submitterText.toLowerCase() ) != -1  )
 				return false;
 
 			// check to see if the message contains a manual retweet specifically
